@@ -1,6 +1,6 @@
 
 import App from "app/App";
-import { Bookmarks, Home, QuranSearch, Settings } from "features";
+import { BookmarksDashboard, Home, QuranSearch, Settings } from "features";
 import { createBrowserRouter } from "react-router-dom";
 import { ROUTE } from "shared/lib/constants";
 
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTE.BOOKMARK,
-        element: <Bookmarks />,
+        element: <BookmarksDashboard />,
       },
       {
         path: ROUTE.SETTINGS,
