@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { BookOutlined } from '@ant-design/icons'
 import styles from './QuranSearch.module.scss'
 import { QuranSearchForm } from '../QuranSearchForm/QuranSearchForm'
 import { SearchFormTypes } from 'shared/model/types'
@@ -45,9 +44,7 @@ export const QuranSearch = () => {
             )))}
             {!searchData?.results?.length && !isFetching && (
               <div className={styles.emptyState}>
-                <div className={styles.emptyIcon}>
-                  <BookOutlined />
-                </div>
+                
                 <h3 className={styles.emptyTitle}>Начните поиск</h3>
                 <p className={styles.emptyText}>Введите слово или фразу для поиска в Коране</p>
               </div>

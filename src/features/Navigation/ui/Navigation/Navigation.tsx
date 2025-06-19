@@ -7,7 +7,7 @@ import { ROUTE } from 'shared/lib/constants'
 export const Navigation = () => {
   return (
     <nav className={styles.navbar}>
-      <NavLink to={ROUTE.HOME} className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+      <NavLink to="/" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
         <HomeOutlined />
         <span>Главная</span>
       </NavLink>

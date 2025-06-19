@@ -201,3 +201,15 @@
     background: #f3f4f6;
   }
 }
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 0.3rem;
+  h3{
+    font-family: $russian-subtitle;
+  }
+  p {
+    font-family: $russian-subtitle;
+  }
+}
