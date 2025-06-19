@@ -1,12 +1,22 @@
 .copy {
-    font-size: 1rem;
-    color: gray;
-  
-    @media (max-width: 768px) {
-      font-size: 1.25rem;
-    }
-    svg {
-        color: gray;
+  font-size: 1.1rem;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  svg {
+    color: rgb(161, 161, 161);
+    &:hover {
+      color: #4aef44;
+      background: #fef2f2;
     }
   }
+
   
+}

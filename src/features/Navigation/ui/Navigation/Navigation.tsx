@@ -16,10 +16,10 @@ export const Navigation = () => {
       <Search size={18} />
         <span>Поиск</span>
       </NavLink>
-      {/* <NavLink to={ROUTE.BOOKMARK} className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+      <NavLink to={ROUTE.BOOKMARK} className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
       <FolderHeart size={18} />
         <span>Избранное</span>
-      </NavLink> */}
+      </NavLink>
       <NavLink to={ROUTE.SETTINGS} className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
       <Settings size={18} />
         <span>Настройки</span>

@@ -1,0 +1,26 @@
+.stats {
+    margin-bottom: 2rem;
+
+    .ant-card {
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+      }
+
+      .ant-statistic-title {
+        color: #6b7280;
+        font-weight: 500;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .ant-col {
+        margin-bottom: 1rem;
+      }
+    }
+  }

@@ -62,25 +62,7 @@
   color: #4b5563;
 }
 
-.favoriteButton {
-  padding: 0.5rem;
-  border-radius: 9999px;
-  color: #9ca3af;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
 
-  &:hover {
-    color: #ef4444;
-    background: #fef2f2;
-  }
-}
-
-.favoriteActive {
-  color: #ef4444;
-  background: #fef2f2;
-}
 
 .verseContainer {
   margin-bottom: 1rem;
