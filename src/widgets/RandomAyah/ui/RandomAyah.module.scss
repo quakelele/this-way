@@ -1,0 +1,29 @@
+.quoteCard {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  
+    @supports not (backdrop-filter: blur(4px)) {
+      background-color: #fff;
+    }
+  }
+  
+  .quoteContent {
+    text-align: center;
+  }
+  
+  .quoteText {
+    font-size: clamp(0.875rem, 2.5vw, 1rem); // до 16px
+    font-style: italic;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+  }
+  
+  .quoteRef {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    color: #6b7280;
+  }
+  

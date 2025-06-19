@@ -1,0 +1,14 @@
+.container {
+  min-height: 100vh;
+  padding: 1.25rem 0.5rem;
+}
+
+.content {
+  margin: 0 auto;
+  // padding: 0 1rem;
+  max-width: clamp(320px, 90vw, 640px);
+}
+
+
+
+

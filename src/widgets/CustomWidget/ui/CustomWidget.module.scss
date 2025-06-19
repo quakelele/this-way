@@ -1,0 +1,47 @@
+.actions {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 640px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  
+    &:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.03);
+    }
+  
+    // fallback для старых браузеров
+    @supports not (backdrop-filter: blur(4px)) {
+      background-color: #fff;
+    }
+  }
+  
+  .cardContent {
+    text-align: center;
+  }
+  .cardTitle {
+    font-size: clamp(0.875rem, 2vw, 1rem); // от 14px до 16px
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.25rem;
+  }
+  
+  .cardText {
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem); // от 12px до 14px
+    color: #6b7280;
+  }
+  
+  

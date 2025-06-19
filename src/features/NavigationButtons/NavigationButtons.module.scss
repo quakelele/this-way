@@ -1,0 +1,41 @@
+.navButtons {
+  position: fixed;
+  right: 10px;
+  top: 70%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  z-index: 9999;
+  user-select: none;
+}
+
+.navButton {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+.counter {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  user-select: none;
+  min-width: 40px;
+  text-align: center;
+}

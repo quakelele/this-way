@@ -1,0 +1,56 @@
+.settingCard {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .settingContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  
+  .sectionTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+  
+  
+  .icon {
+    font-size: 1.125rem;
+    color: #4b5563;
+  }
+  
+  .settingTitle {
+    font-weight: 500;
+    color: #1f2937;
+  }
+  
+  .settingDescription {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+  
+  .settingInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .iconWrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #f3f4f6;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

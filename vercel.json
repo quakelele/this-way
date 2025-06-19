@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    
+    {
+      "source": "/api/proxy/quran/:path*",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/api/proxy/prayer-times/:path*",
+      "destination": "/api/prayer"
+    },
+    {
+      "source": "/(.*)",  
+      "destination": "/"  
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" }
+      ]
+    }
+  ]
+}
+

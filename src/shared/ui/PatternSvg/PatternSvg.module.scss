@@ -1,0 +1,24 @@
+.topLeft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16rem;
+    height: 16rem;
+    transform: translate(-8rem, -8rem);
+    opacity: 0.05;
+  }
+  
+  .botRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16rem;
+    height: 16rem;
+    transform: translate(8rem, 8rem);
+    opacity: 0.05;
+  }
+  
+  .patternSvg {
+    width: 100%;
+    height: 100%;
+  }

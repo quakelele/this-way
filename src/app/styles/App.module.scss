@@ -1,0 +1,33 @@
+.app {
+  min-height: 100vh;
+  background: $main-bg;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 60px;
+}
+
+.patternTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.patternBottomRight {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.patternSvg {
+  opacity: 0.1;
+}
+
+.content {
+  padding: 1rem;
+  padding-bottom: 5rem; /* Space for fixed navigation */
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 60px); /* Ensure content takes full height minus navigation */
+}

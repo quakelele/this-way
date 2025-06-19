@@ -1,0 +1,77 @@
+.verseContainer {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.arabicText {
+  padding: 1rem;
+  background: rgba(243, 244, 246, 0.7);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+
+  :global(.ant-tag.ant-tag-lime.ant-tag-borderless) {
+    background: rgba(150, 150, 150, 0.101);
+    color: #374151;
+  }
+
+  p {
+    flex: 1;
+    text-align: right;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #1f2937;
+    font-family: $arabic-description;
+    direction: rtl;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+.translation {
+  padding: 1rem;
+  // background: rgba(243, 244, 246, 0.5);
+  background: rgba(106, 156, 255, 0.049);
+
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  word-break: break-word;
+
+
+}
+
+.translationText {
+  flex: 1;
+  color: #374151;
+  line-height: 1.6;
+
+  font-size: 1rem;
+
+  // font-family: $russian-description;
+  :global(.highlighted) {
+    background-color: #fef08a;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
+
+  font-family:$russian-subtitle;
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+  }
+
+  span {
+    background-color: #fef08a;
+    border-radius: 4px;
+    padding: 0 2px;
+  }
+}

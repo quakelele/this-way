@@ -1,0 +1,12 @@
+.copy {
+    font-size: 1rem;
+    color: gray;
+  
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+    svg {
+        color: gray;
+    }
+  }
+  

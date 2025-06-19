@@ -1,0 +1,58 @@
+  
+  // import { skipToken } from '@reduxjs/toolkit/query';
+// import { useGetTodayPrayerQuery } from 'entities/LocationSetting/api/locationApi';
+  // Запрос данных только если есть location
+  // const { data } = useGetTodayPrayerQuery(
+  //   location
+  //     ? {
+  //       latitude: location.lat,
+  //       longitude: location.lng,
+  //       timezone: location.timezone,
+  //       method,
+  //     }
+  //     : skipToken
+  // )
+
+
+    <Form form={form} layout="vertical" className={styles.form}>
+            <Form.Item name="city" label="Введите название вашего города:">
+              <Input
+                autoFocus
+                value={cityInput}
+                onFocus={() => setInputFocused(true)}
+                onBlur={() => setInputFocused(false)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                onChange={(e) => setCityInput(e.target.value)}
+                placeholder="Введите город"
+              />
+            </Form.Item>
+
+            <div className={styles.drawerActions}>
+              <Button
+                onClick={autoDetect}
+                disabled={loading}
+                icon={loading ? <Spin size="small" /> : <SearchOutlined />}
+                block
+              >
+                Определить автоматически
+              </Button>
+              <Button
+                type="primary"
+                onClick={handleSearch}
+                icon={loading && <Spin size="small" />}
+                disabled={loading || (!cityInput.trim() && !inputFocused)}
+                block
+              >
+                Найти город
+              </Button>
+            </div>
+
+            <Form.Item name="timezone" label="Метод расчёта">
+              <Select
+                value={method}
+                onChange={(value) => setMethod(value)}
+                placeholder="Выберите метод"
+                options={options}
+              />
+            </Form.Item>
+          </Form>
