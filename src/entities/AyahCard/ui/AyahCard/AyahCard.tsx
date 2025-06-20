@@ -4,43 +4,57 @@ import { Card } from 'antd';
 import styles from './AyahCard.module.scss';
 import { DecorationSvg as Decoration } from 'shared/ui/DecorationSvg/DecorationSvg';
 import { BookOpen } from 'lucide-react';
-import { Surah, Verse } from 'shared/model/types';
+
 import { AyahItem } from 'entities';
 
-
-
+import { surahs } from 'entities/AyahCard/model/surahs';
+import { Translation } from 'entities/AyahCard/model/types';
 
 
 type Props = {
-  search: string;
-  surah: Surah;
-  verses: Verse[];
-};
-export const AyahCard = ({ verses, surah, search }: Props) => {
+  verse_key: string
+  text: string
+  translations: Translation[]
+  search: string
+}
+
+
+export const AyahCard = (
+  { verse_key, text, translations, search }: Props
+) => {
+
+  //   const [favorites, setFavorites] = useState<Verse[]>([])
+  // console.log(surah.length)
+  //   const toggle = (verse) => {
+  //     const updated = favorites.find(item => item.name === verse.id)
+  //   }
+
+  const surahName = verse_key.split(':')[0] 
 
   return (
     <Card className={styles.card} hoverable>
 
       <div className={styles.header}>
         <div className={styles.surahInfo}>
-          <div className={styles.surahNumber}>{surah.id}</div>
+          <div className={styles.surahNumber}>{surahName}</div>
           <div className={styles.ayahInfo}>
             <BookOpen size={15} className={styles.bookIcon} />
             <span>
-              {surah.transliteration} ({surah.translation}) {surah.name}
+              {`${surahs[surahName].russian} ${surahs[surahName].arabic}`}
             </span>
-          </div>
-        </div>
+          </div>S
+        </div>S
 
       </div>
 
-      {verses.map((verse, index) => (
+      {translations.map((translation) => (
         <AyahItem
-      
-          key={index}
-          verse={verse}
-          search={search}
-          {...surah}
+          searchQuery={search}
+          key={translation.resource_id}
+          surahKey={verse_key}
+          arabianText={text}
+          {...translation}
+
         />
       ))}
       <Decoration />
