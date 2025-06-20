@@ -42,8 +42,8 @@ export const AyahCard = (
             <span>
               {`${surahs[surahName].russian} ${surahs[surahName].arabic}`}
             </span>
-          </div>S
-        </div>S
+          </div>
+        </div>
 
       </div>
 
