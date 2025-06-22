@@ -32,14 +32,12 @@
     font-family: $russian-subtitle;
     font-size: 1rem;
     color: #6b7280;
-  
+
     @media (max-width: 768px) {
       font-size: 0.95rem;
     }
   }
 }
-
-
 
 .results {
   display: flex;
@@ -206,10 +204,14 @@
   flex-direction: column;
   align-items: left;
   gap: 0.3rem;
-  h3{
+  h3 {
     font-family: $russian-subtitle;
   }
   p {
     font-family: $russian-subtitle;
   }
+}
+.loadMoreTrigger {
+  height: 50px;
+  visibility: hidden;
 }
