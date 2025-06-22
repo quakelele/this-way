@@ -6,23 +6,19 @@ import { useGetAyaInfiniteQuery } from 'features/QuranSearch/api/searchApi'
 import { AyahCard } from 'entities/AyahCard/ui/AyahCard/AyahCard'
 import { AyahCardSkeleton } from 'shared/ui/Skeletons/AyahCardSkeleton/AyahCardSkeleton'
 import { NavigationButtons } from 'features/NavigationButtons/NavigationButtons'
+import { useTranslation } from 'shared/hooks/useTranslation'
 
 export const QuranSearch = () => {
   const [query, setQuery] = useState<SearchFormTypes>()
-
-  const {
-    data,
-    isFetching,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetAyaInfiniteQuery(query as SearchFormTypes, {
-    skip: !query,
-  })
+  const { t } = useTranslation()
+  const { data, isFetching, fetchNextPage, hasNextPage } =
+    useGetAyaInfiniteQuery(query as SearchFormTypes, {
+      skip: !query,
+    })
 
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
-console.log(data)
-console.log(data)
+
   const allResults = data?.pages.flatMap(page => page.search.results) ?? []
   const totalResults = data?.pages[0]?.search?.total_results
   const searchText = data?.pages[0]?.search?.query || ''
@@ -59,9 +55,9 @@ console.log(data)
     if (!allResults.length && !isFetching) {
       return (
         <div className={styles.emptyState}>
-          <h3 className={styles.emptyTitle}>Начните поиск</h3>
+          <h3 className={styles.emptyTitle}>{t('Начните поиск')}</h3>
           <p className={styles.emptyText}>
-            Введите слово или фразу для поиска в Коране
+            {t('Введите слово или фразу для поиска в Коране')}
           </p>
         </div>
       )
@@ -70,10 +66,16 @@ console.log(data)
     return (
       <>
         {allResults.map(quran => (
-          <AyahCard key={quran.verse_id} {...quran} />
+          <AyahCard
+            key={quran.verse_id}
+            {...quran}
+          />
         ))}
         {hasNextPage && (
-          <div ref={loadMoreRef} className={styles.loadMoreTrigger} />
+          <div
+            ref={loadMoreRef}
+            className={styles.loadMoreTrigger}
+          />
         )}
       </>
     )
@@ -83,17 +85,20 @@ console.log(data)
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1>Поиск в Коране</h1>
-          <p>Найдите аяты и получите духовное руководство</p>
+          <h1>{t('Поиск в Коране')}</h1>
+          <p>{t('Найдите аяты и получите духовное руководство')}</p>
         </header>
 
-        <QuranSearchForm setQuery={setQuery} isLoading={isFetching} />
+        <QuranSearchForm
+          setQuery={setQuery}
+          isLoading={isFetching}
+        />
         <NavigationButtons search={searchText} />
 
         {data && (
           <section className={styles.results}>
             <h2 className={styles.resultsTitle}>
-              Результаты поиска ({totalResults})
+              {t('Результаты поиска')}: ({totalResults})
             </h2>
             {renderResults()}
           </section>

@@ -1,14 +1,16 @@
+import { useTranslation } from 'shared/hooks/useTranslation'
 import styles from './Header.module.scss'
 
 export const Header = () => {
+    const { t } = useTranslation()
     return (
         <header className={styles.header}>
-            <h1 >Таков Путь..</h1>
+            <h1 >{t('Таков Путь..')}</h1>
             <h3 >هكذا الطريق</h3>
             <p >
-                Добро пожаловать в духовное путешествие.
+                {t('Добро пожаловать в духовное путешествие.')}
                 <br />
-                Пусть этот путь приведёт к миру и просветлению.
+                {t('Пусть этот путь приведёт к миру и просветлению.')}
             </p>
         </header>
     )

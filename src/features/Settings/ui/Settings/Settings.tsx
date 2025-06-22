@@ -1,26 +1,29 @@
-import styles from './Settings.module.scss';
+import { Localization } from 'features/Localization/ui/Localization/Localization'
+import styles from './Settings.module.scss'
 
-import { LocationSetting } from 'entities/LocationSetting/ui/LocationSetting/LocationSetting';
-
+import { LocationSetting } from 'entities/LocationSetting/ui/LocationSetting/LocationSetting'
+import { useTranslation } from 'shared/hooks/useTranslation'
 
 export const Settings = () => {
-
-
+  const { t } = useTranslation()
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.header}>
-          <h1 >Настройки</h1>
-          <p >Персонализируйте своё духовное путешествие</p>
+          <h1>{t('Настройки')}</h1>
+          <p>{t('Персонализируйте своё духовное путешествие')}</p>
         </div>
 
         <div className={styles.sections}>
-          
-
           <div className={styles.section}>
-            <h2 >Местоположение</h2>
+            <h2>{t('Местоположение')}</h2>
 
             <LocationSetting />
+          </div>
+          <div className={styles.section}>
+            <h2>{t('Сменить язык')}</h2>
+
+            <Localization />
           </div>
 
           {/* <div className={styles.section}>
@@ -117,6 +120,5 @@ export const Settings = () => {
         </div>
       </div>
     </div>
-  );
-};
-
+  )
+}

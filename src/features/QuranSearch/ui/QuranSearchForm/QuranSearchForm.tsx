@@ -4,6 +4,7 @@ import { SearchFormTypes } from 'shared/model/types'
 import { SearchOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import styles from './QuranSearchForm.module.scss'
+import { useTranslation } from 'shared/hooks/useTranslation'
 
 type Props = {
   setQuery: (arg: SearchFormTypes) => void
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
+  const { t } = useTranslation()
   const [isTouched, setIsTouched] = useState(false)
 
   const [form] = Form.useForm()
@@ -24,7 +26,6 @@ export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
     })
     console.log(values)
   }
-
   return (
     <Form
       className={styles.searchCard}
@@ -42,14 +43,14 @@ export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
         <Input type="hidden" />
       </Form.Item>
       <Form.Item
-        label="Язык перевода"
+        label={t('Язык перевода')}
         name="translationId"
         className={styles.formItem}
-        rules={[{ required: true, message: 'Пожалуйста выберите язык' }]}>
+        rules={[{ required: true, message: t('Пожалуйста выберите язык') }]}>
         <Select
           className={styles.select}
           options={options}
-          placeholder="Выберите язык"
+          placeholder={t('Выберите язык')}
           onChange={(value, option) => {
             const selected = option as TranslationOption
             form.setFieldsValue({
@@ -61,15 +62,15 @@ export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
       </Form.Item>
 
       <Form.Item
-        label="Поиск по тексту"
+        label={t('Поиск по тексту')}
         className={styles.formItem}
         name="searchText"
         rules={[
-          { required: true, message: 'Пожалуйста введите значение для поиска' },
-          { min: 3, message: 'Минимальное значение - 3' },
+          { required: true, message: t('Пожалуйста введите значение для поиска') },
+          { min: 3, message: t('Минимальное значение - 3') },
         ]}>
         <Input
-          placeholder="Введите слово или фразу..."
+          placeholder={t('Введите слово или фразу...')}
           suffix={<SearchOutlined className={styles.searchIcon} />}
           className={styles.input}
         />
@@ -82,7 +83,7 @@ export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
           disabled={!isTouched || isLoading}
           className={styles.searchButton}
           icon={isLoading ? <Spin size="small" /> : <SearchOutlined />}>
-          {isLoading ? 'Поиск...' : 'Найти аяты'}
+          {isLoading ? t('Поиск...') : t('Найти аяты')}
         </Button>
       </Form.Item>
     </Form>

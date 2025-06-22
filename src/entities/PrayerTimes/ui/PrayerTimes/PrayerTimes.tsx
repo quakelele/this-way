@@ -8,6 +8,7 @@ import { DecorationSvg } from 'shared';
 import { PrayerHeader } from '../PrayerHeader/PrayerHeader';
 import { PrayerList } from '../PrayerList/PrayerList';
 import { getCurrentPrayer, getNextPrayer, useCurrentTime } from 'entities/PrayerTimes/utils/helpers';
+import { useTranslation } from 'shared/hooks/useTranslation';
 
 
 // Установка русской локали
@@ -17,7 +18,7 @@ export const PrayerTimes = () => {
   const { todayPrayerTimes, todayFetching} = usePrayerTimes();
   const { location } = useLocationWithSearch();
   const currentTime = useCurrentTime();
-
+  const { t } = useTranslation()
   // Отладка для проверки location
 
   // Мемоизация текущей и следующей молитвы
@@ -26,7 +27,7 @@ export const PrayerTimes = () => {
     [todayPrayerTimes, currentTime]
   );
   const nextPrayer = useMemo(
-    () => getNextPrayer(todayPrayerTimes),
+    () => getNextPrayer(todayPrayerTimes, t),
     [todayPrayerTimes]
   );
 

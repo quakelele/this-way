@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { customOffsets, timeAdjustments } from '../config/adjustments';
+import { useTranslation } from 'shared/hooks/useTranslation';
 
 type Prayer = {
   key: string
@@ -63,7 +64,8 @@ function pluralize(value: number, forms: [string, string, string]) {
   return forms[2];
 }
 
-export const getNextPrayer = (prayers: Prayer[]) => {
+export const getNextPrayer = (prayers: Prayer[], t:any) => {
+
   if (!prayers || prayers.length === 0) return null;
 
   const now = new Date();
@@ -83,18 +85,18 @@ export const getNextPrayer = (prayers: Prayer[]) => {
   const hours = Math.floor(nextPrayer.diff / 60);
   const minutes = nextPrayer.diff % 60;
 
-  const hourText = pluralize(hours, ['час', 'часа', 'часов']);
-  const minuteText = pluralize(minutes, ['минута', 'минуты', 'минут']);
+  const hourText = pluralize(hours, [t('час'), t('часа'), t('часов')]);
+  const minuteText = pluralize(minutes, [t('минута'), t('минуты'), t('минут')]);
 
   if (hours > 0 && minutes > 0) {
     return {
       ...nextPrayer,
-      remaining: `Осталось ${hours} ${hourText} и ${minutes} ${minuteText}`,
+      remaining: `${t('Осталось')} ${hours} ${hourText} и ${minutes} ${minuteText}`,
     };
   }
 
   if (hours > 0 && minutes === 0) {
-    const verb = hours === 1 ? 'Остался' : 'Осталось';
+    const verb = hours === 1 ? t('Остался') : t('Осталось');
     return {
       ...nextPrayer,
       remaining: `${verb} ${hours} ${hourText}`,
@@ -102,7 +104,7 @@ export const getNextPrayer = (prayers: Prayer[]) => {
   }
 
   if (hours === 0 && minutes > 0) {
-    const verb = minutes === 1 ? 'Осталась' : 'Осталось';
+    const verb = minutes === 1 ? t('Осталась') : t('Осталось');
     return {
       ...nextPrayer,
       remaining: `${verb} ${minutes} ${minuteText}`,
@@ -111,7 +113,7 @@ export const getNextPrayer = (prayers: Prayer[]) => {
 
   return {
     ...nextPrayer,
-    remaining: 'Сейчас',
+    remaining: t('Сейчас'),
   };
 };
 
