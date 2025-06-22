@@ -8,11 +8,12 @@ import { useLocationWithSearch } from 'entities/LocationSetting/hooks/useLocatio
 import { methods } from 'entities/LocationSetting/lib/methods';
 import { useDispatch} from 'react-redux';
 import {  setLocationForm } from 'app/store/slice/locationForm';
+import { useTranslation } from 'shared/hooks/useTranslation';
 
 export const LocationSetting = () => {
 
   const { location, loading,searchCity, autoDetect } = useLocationWithSearch();
-
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false);
   const [form] = Form.useForm();
 const dispatch = useDispatch()
@@ -32,18 +33,18 @@ const dispatch = useDispatch()
     <>
       <SettingItem
         icon={EnvironmentOutlined}
-        title="Текущее местоположение"
+        title={t('Текущее местоположение')}
         description={loading ? (
-          <em>Определение...</em>
+          <em>{t('Определение...')}</em>
         ) : location ? (
-          <span className={location.isAuto ? styles.auto : styles.manual}>
-            {location.city} {location.isAuto ? '(определено автоматически)' : '(выбрано вручную)'}
-          </span>
+          <em><span className={location.isAuto ? styles.auto : styles.manual}>
+          {location.city} {location.isAuto ? t('(определено автоматически)') : t('(выбрано вручную)')}
+        </span></em>
         ) : (
-          <em>Нет данных</em>
+          <em>{t('Нет данных')}</em>
         )}
       >
-        <Button onClick={() => setOpen(true)} className={styles.triggerBtn}>
+        <Button onClick={() => setOpen(true)} className={styles.submitButton}>
           Изменить
         </Button>
       </SettingItem>
@@ -51,7 +52,7 @@ const dispatch = useDispatch()
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
-        title="Изменить местоположение"
+        title={t("Изменить местоположение")}
         placement="bottom"
         height="auto"
         closable
@@ -60,10 +61,10 @@ const dispatch = useDispatch()
       >
         <div className={styles.drawerInner}>
           <Form onFinish={onFinish} form={form} layout="vertical" className={styles.form}>
-            <Form.Item name="city" label="Введите название вашего города:">
+            <Form.Item name="city" label={t("Введите название вашего города:")}>
               <Input
                 autoFocus
-                      placeholder="Введите город"
+                      placeholder={t("Введите город")}
               />
             </Form.Item>
 
@@ -75,7 +76,7 @@ const dispatch = useDispatch()
                   icon={loading ? <Spin size="small" /> : <SearchOutlined />}
                   block
                 >
-                  Определить автоматически
+                  {t('Определить автоматически')}
                 </Button>
               </Form.Item>
               <Form.Item>
@@ -86,13 +87,13 @@ const dispatch = useDispatch()
                   disabled={loading}
                   block
                 >
-                  Найти город
+                  {t('Найти город')}
                 </Button>
               </Form.Item>
             </div>
-            <Form.Item name="timezone" label="Метод расчёта">
+            <Form.Item name="timezone" label={t("Метод расчёта")}>
               <Select
-                        placeholder="Выберите метод"
+                        placeholder={t("Выберите метод")}
                 options={methods}
               />
             </Form.Item>

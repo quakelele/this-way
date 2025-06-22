@@ -1,51 +1,101 @@
 .auto {
   color: rgb(33, 109, 33);
   font-weight: 600;
+  font-size: 14px;
 }
 
 .manual {
-  color: rgb(72, 72, 150);
+  color: rgb(33, 109, 33);
   font-weight: 600;
+  font-size: 14px;
 }
 
 .form {
   width: 100%;
-  max-width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  :global(.ant-form-item) {
+    margin-bottom: 10px;
+  }
+  @media (min-width: 768px) {
+    max-width: 360px;
+  }
 
   .ant-form-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0 !important;
   }
 
-  input,
-  .ant-select,
-  .ant-btn {
-    font-size: 14px;
-    border-radius: 8px;
-    height: 38px;
+  .ant-form-item-label > label {
+    font-size: 0.875rem;
+    color: #333;
+    font-weight: 500;
   }
+}
 
-  .drawerActions {
+.select {
+  .ant-select-selector {
+    height: 44px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e0e0e0 !important;
+    padding: 0 1rem !important;
+    font-size: 0.875rem !important;
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    align-items: center;
+    transition: all 0.3s ease;
 
-    :global(.ant-btn) {
-      color: white;
-      width: 100%;
-      background: $base-dark-color;
-      border: none;
+    &:hover {
+      border-color: #4a4ae6 !important;
+      box-shadow: 0 0 0 3px rgba(74, 74, 230, 0.1);
     }
+  }
 
-    :global(.ant-btn) {
-      &:hover {
-        background: $base-dark-light-color !important;
-        color: white;
-        border: none;
-      }
-    }
+  .ant-select-selection-item {
+    line-height: 44px !important;
+  }
+
+  .ant-select-arrow {
+    color: #666;
+  }
+}
+
+.submitButton {
+  height: 35px;
+  border-radius: 12px;
+  background: $base-dark-color;
+  // background: linear-gradient(135deg, #4a4ae6, #6b6bff);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 74, 230, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #6b6bff, #4a4ae6);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 74, 230, 0.4);
+  }
+
+  &:active {
+    background: linear-gradient(135deg, #3a3ad6, #5a5aff);
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(74, 74, 230, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 0 0.25rem;
+  }
+
+  .select .ant-select-selector,
+  .submitButton {
+    height: 40px;
+    font-size: 0.85rem;
+  }
+
+  .select .ant-select-selection-item {
+    line-height: 40px !important;
   }
 }

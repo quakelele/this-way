@@ -2,6 +2,7 @@ import { Divider, Tag, Tooltip } from 'antd'
 import styles from './AyahItem.module.scss'
 import { CopyButton } from 'shared/ui/CopyButton/CopyButton'
 import { Heart } from 'lucide-react'
+import { stripHtml } from 'entities/AyahCard/helpers/stripHtml'
 
 type Props = {
   text: string
@@ -14,8 +15,11 @@ export const AyahItem = ({
   surahKey,
   arabianText,
 }: Props) => {
+  const plainText = stripHtml(russianText) // 👈 очищенный текст🪶📜🌕ִֶָ☾♡
   // const [, setCurrentHighlight] = useState(-1);
-  const arabicAndTranslateCopy = `📖 ${surahKey}  \n\n🕋 ${arabianText}\n\n✎𓂃 ${russianText}`
+  const arabicAndTranslateCopy = `📖 ${surahKey}
+    \n\n🕋 ${arabianText}\n\n 
+    ${plainText}`
   return (
     <div className={styles.verseContainer}>
       <div className={styles.arabicText}>

@@ -18,9 +18,7 @@ type Props = {
 export const AyahCard = ({ verse_key, text, translations }: Props) => {
   const surahName = verse_key.split(':')[0]
 
-  // console.log("text:" , text)
-  // console.log("verse_key:" , verse_key)
-  // console.log("translations:" , translations.language_name)
+
   return (
     <Card
       className={styles.card}
