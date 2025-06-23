@@ -1,14 +1,14 @@
 
 import { useState, useEffect } from 'react';
 
-type Location = {
+ type Location = {
   lat: number;
   lng: number;
   timezone: string;
   city: string;
+  address?: Record<string, string>;
   isAuto: boolean;
 };
-
 const LOCAL_STORAGE_KEY = 'prayer_location';
 
 export const useLocationWithSearch = (onLocationChange?: (loc: Location) => void) => {
@@ -45,6 +45,9 @@ export const useLocationWithSearch = (onLocationChange?: (loc: Location) => void
         }
       );
       const data = await res.json();
+
+      
+
       const city =
         data.address.city ||
         data.address.town ||
@@ -52,13 +55,23 @@ export const useLocationWithSearch = (onLocationChange?: (loc: Location) => void
         data.address.county ||
         'Ваше местоположение';
 
+      // const loc: Location = {
+      //   lat: latitude,
+      //   lng: longitude,
+      //   timezone: tz || 'Asia/Baku', // Дефолтная зона
+      //   city,
+      //   isAuto: true,
+      // };
+
       const loc: Location = {
         lat: latitude,
         lng: longitude,
-        timezone: tz || 'Asia/Baku', // Дефолтная зона
+        timezone: tz || 'Asia/Baku',
         city,
         isAuto: true,
+        address: data.address, // сохраняем всё
       };
+
 
       setLocation(loc);
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(loc));
@@ -99,6 +112,7 @@ export const useLocationWithSearch = (onLocationChange?: (loc: Location) => void
 
       const place = data[0];
       const tz = city.toLowerCase() === 'баку' ? 'Asia/Baku' : Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 
       const loc: Location = {
         lat: parseFloat(place.lat),

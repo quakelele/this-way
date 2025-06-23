@@ -5,7 +5,7 @@ export const Header = () => {
   const { t } = useTranslation()
   return (
     <header className={styles.header}>
-      <h1>{t('Таков Путь..')}</h1>
+      <h1 >{t('Таков Путь..')}</h1>
       <h3>هكذا الطريق</h3>
       <p>
         {t('Добро пожаловать в духовное путешествие.')}

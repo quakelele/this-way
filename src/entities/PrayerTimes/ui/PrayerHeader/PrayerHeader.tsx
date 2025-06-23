@@ -4,6 +4,7 @@ import styles from '../PrayerTimes/PrayerTimes.module.scss'
 import { Dayjs } from 'dayjs'
 import { Location, NextPrayer } from 'entities/PrayerTimes/model/types'
 import { useTranslation } from 'shared/hooks/useTranslation'
+import { useLocalizedDate } from 'shared/hooks/useLocalizedDate'
 interface PrayerHeaderProps {
   currentTime: Dayjs
   nextPrayer: NextPrayer | null
@@ -17,13 +18,15 @@ export const PrayerHeader: React.FC<PrayerHeaderProps> = ({
 }) => {
   // Отладка для проверки location
   const { t } = useTranslation()
+  const localizedDate = useLocalizedDate(location?.city)
   return (
     <div className={styles.header}>
       <div className={styles.time}>{currentTime.format('HH:mm')}</div>
-      <div className={styles.date}>
+      <div className={styles.date}>{localizedDate}</div>
+      {/* <div className={styles.date}>
         {currentTime.format('dddd, DD MMMM')}{' '}
         {location?.city ? `| ${location.city}` : `| ${t('Город не выбран')}`}
-      </div>
+      </div> */}
       <div className={styles.nextPrayer}>
         <ClockIcon className={styles.clockIcon} />
         <span className={styles.remainingTime}>
