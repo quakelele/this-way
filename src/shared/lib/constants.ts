@@ -1,7 +1,7 @@
 
 
 export const ROUTE = {
-    HOME: 'home',
+    HOME: '/',
     SEARCH: 'search',
     BOOKMARK: 'bookmark',
     SETTINGS: 'settings',
