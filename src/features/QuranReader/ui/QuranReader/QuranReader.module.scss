@@ -1,174 +1,96 @@
-// .header {
-//   background: rgba(255, 255, 255, 0.95);
-//   backdrop-filter: blur(10px);
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-//   padding: 2rem;
-//   top: 0;
-//   z-index: 1000;
-//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-//   border-radius: 1rem;
-//   max-width: 1400px;
-//   width: 100%;
-//   display: flex;
-//   align-items: center;
-//   margin: 0 auto;
-//   justify-content: center;
-//   @media (max-width: 768px) {
-//     padding: 0.75rem 0;
-//   }
-// }
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+//   padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
-
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
 .title {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-family: $russian-title;
+
+  @media (max-width: 768px) {
+    // font-size: 1.5rem;
+  }
+}
+
+.toggle {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 
-  @media (max-width: 768px) {
-    font-size: 1.25rem;
-  }
+  button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #22c55e;
+    border-radius: 8px;
+    background: transparent;
+    color: #22c55e;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
 
-  @media (max-width: 480px) {
-    font-size: 1rem;
+    &:hover {
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    &.active {
+      background: #22c55e;
+      color: white;
+    }
   }
 }
 
-.titleIcon {
-  color: #22c55e;
-  font-size: 1.75rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
+.controls {
+  display: flex;
+  justify-content: center;
 }
 
-/* Ant Design Select Styles */
-:global(.ant-select) {
-  width: 180px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #1a1a1a;
+.select {
+  width: 220px;
 
   @media (max-width: 768px) {
     width: 100%;
   }
-
-  @media (max-width: 480px) {
-    font-size: 0.85rem;
-  }
 }
 
-:global(.ant-select-selector) {
-  background: #ffffff !important;
-  border: 1px solid #e9ecef !important;
-  border-radius: 8px !important;
-  height: 40px !important;
+.content {
   display: flex;
-  align-items: center;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0 1rem !important;
-
-  @media (max-width: 480px) {
-    height: 36px !important;
-    padding: 0 0.75rem !important;
-  }
+  flex-direction: column;
+  gap: 2rem;
 }
 
-:global(.ant-select-selector:hover) {
-  border-color: #22c55e !important;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.1) !important;
-}
-
-:global(.ant-select-selection-item) {
-  color: #1a1a1a;
-  font-weight: 500;
-}
-
-:global(.ant-select-arrow) {
-  color: #6b7280;
-  transition: all 0.2s;
-}
-
-:global(.ant-select-focused .ant-select-selector) {
-  border-color: #22c55e !important;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2) !important;
-}
-
-:global(.ant-select-dropdown) {
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e9ecef;
-  max-height: 300px;
-  overflow-y: auto;
-
-  @media (max-width: 480px) {
-    max-height: 250px;
-  }
-}
-
-:global(.ant-select-item-option) {
-  font-size: 0.9rem;
-  color: #1a1a1a;
-  padding: 0.5rem 1rem;
-  transition: all 0.2s;
-
-  @media (max-width: 480px) {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.75rem;
-  }
-}
-
-:global(.ant-select-item-option:hover:not(.ant-select-item-option-disabled)) {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
-}
-
-:global(
-    .ant-select-item-option-selected:not(.ant-select-item-option-disabled)
-  ) {
-  background: #22c55e;
-  color: white;
-  font-weight: 500;
-}
-
-.main {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-  }
-}
-
-.loadingContainer {
+.ayahList {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem;
-  color: #6b7280;
   flex-direction: column;
   gap: 1.5rem;
+}
 
-  @media (max-width: 768px) {
-    padding: 2rem;
-  }
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1rem;
+  gap: 1rem;
+  color: #6b7280;
 }
 
 .loadingText {
   font-size: 1.1rem;
   font-weight: 500;
+  font-family: $russian-subtitle;
 
   @media (max-width: 480px) {
     font-size: 1rem;
@@ -178,6 +100,7 @@ gap: 1rem;
 .errorText {
   color: #dc2626;
   font-size: 1.1rem;
+  font-family: $russian-subtitle;
 
   @media (max-width: 480px) {
     font-size: 1rem;
