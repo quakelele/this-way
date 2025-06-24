@@ -5,5 +5,6 @@ export const ROUTE = {
     SEARCH: 'search',
     BOOKMARK: 'bookmark',
     SETTINGS: 'settings',
+    READER: 'reader',
 
 } as const

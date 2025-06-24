@@ -1,6 +1,8 @@
 
 import App from "app/App";
-import { BookmarksDashboard, Home, QuranSearch, Settings } from "features";
+
+import {  BookmarkPage, HomePage, SearchPage, SettingPage } from "pages";
+import { QuranReaderPage } from "pages/QuranReaderPage/QuranReaderPage";
 import { createBrowserRouter } from "react-router-dom";
 import { ROUTE } from "shared/lib/constants";
 
@@ -15,19 +17,23 @@ export const router = createBrowserRouter([
       {
 
         path: "/",
-        element: <Home />,
+        element: <HomePage/>,
       },
       {
         path: ROUTE.SEARCH,
-        element: <QuranSearch />,
+        element: <SearchPage />,
       },
       {
         path: ROUTE.BOOKMARK,
-        element: <BookmarksDashboard />,
+        element: <BookmarkPage />,
       },
       {
         path: ROUTE.SETTINGS,
-        element: <Settings />,
+        element: <SettingPage />,
+      },
+      {
+        path: ROUTE.READER,
+        element: <QuranReaderPage />,
       },
 
     ],

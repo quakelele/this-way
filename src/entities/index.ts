@@ -1,5 +1,5 @@
 export * from './AyahCard/ui/AyahCard/AyahCard';
-export {AyahItem} from './AyahCard/ui/AyahItem/AyahItem';
+export * from './AyahCard/ui/AyahItem/AyahItem'
 export * from './PrayerTimes/ui/PrayerTimes/PrayerTimes'
-
-
+export * from './AyahCard/ui/AyahCardQuran/AyahCardQuran'
+export * from './Surah/ui/SurahInfo/SurahInfo'

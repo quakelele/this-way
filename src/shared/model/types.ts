@@ -85,3 +85,8 @@ export interface AudioRecitation {
 export interface AudioData {
   [key: string]: AudioRecitation
 }
+
+export interface IconProps {
+  className?: string;
+  style?: React.CSSProperties;
+}

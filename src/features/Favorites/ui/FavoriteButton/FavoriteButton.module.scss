@@ -1,0 +1,28 @@
+.actionButton {
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background: #f8fafc;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid #e5e7eb;
+  
+    &:hover {
+      transform: scale(1.1);
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.05);
+      color: #22c55e;
+    }
+  }
+  
+  .actionButtonActive {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    border-color: #dc2626;
+  }

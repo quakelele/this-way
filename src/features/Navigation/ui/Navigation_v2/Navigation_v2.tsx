@@ -1,18 +1,12 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { House, Search, FolderHeart, Settings, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { ROUTE } from 'shared/lib/constants'
 import styles from './Navigation_v2.module.scss'
 import headerStyles from 'features/Navigation/styles/Header_v2.module.scss'
 import burgerStyles from 'features/Navigation/styles/Burger_v2.module.scss'
-
-const navItems = [
-  { path: ROUTE.HOME, icon: <House size={18} />, label: 'Главная' },
-  { path: ROUTE.SEARCH, icon: <Search size={18} />, label: 'Поиск' },
-  { path: ROUTE.BOOKMARK, icon: <FolderHeart size={18} />, label: 'Избранное' },
-  { path: ROUTE.SETTINGS, icon: <Settings size={18} />, label: 'Настройки' },
-]
+import { navItems } from 'features/Navigation/lib/navConfig'
 
 export const Navigation_v2 = () => {
   const { t } = useTranslation()

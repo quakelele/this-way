@@ -7,6 +7,7 @@ import { AyahCard } from 'entities/AyahCard/ui/AyahCard/AyahCard'
 import { AyahCardSkeleton } from 'shared/ui/Skeletons/AyahCardSkeleton/AyahCardSkeleton'
 import { NavigationButtons } from 'features/NavigationButtons/NavigationButtons'
 import { useTranslation } from 'shared/hooks/useTranslation'
+import { Button } from 'antd'
 
 export const QuranSearch = () => {
   const [query, setQuery] = useState<SearchFormTypes>()
@@ -22,6 +23,10 @@ export const QuranSearch = () => {
   const allResults = data?.pages.flatMap(page => page.search.results) ?? []
   const totalResults = data?.pages[0]?.search?.total_results
   const searchText = data?.pages[0]?.search?.query || ''
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     if (!hasNextPage || isFetching) return
@@ -93,7 +98,7 @@ export const QuranSearch = () => {
           setQuery={setQuery}
           isLoading={isFetching}
         />
-        <NavigationButtons search={searchText} />
+        {/* <NavigationButtons search={searchText} /> */}
 
         {data && (
           <section className={styles.results}>
@@ -104,6 +109,12 @@ export const QuranSearch = () => {
           </section>
         )}
       </div>
+      {/* <Button
+        className={styles.submitButton}
+        onClick={scrollToTop}>
+        {' '}
+        scroll up
+      </Button> */}
     </div>
   )
 }

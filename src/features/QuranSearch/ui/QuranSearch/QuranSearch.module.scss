@@ -1,16 +1,19 @@
 .container {
+  position: relative;
   min-height: 100vh;
 
   @media (max-width: 768px) {
-    padding: 1.25rem 0.5rem;
   }
 }
-
 .content {
   max-width: 28rem;
   margin: 0 auto;
   width: 100%;
+  position: sticky;
+  top: 0;
 }
+
+
 
 .header {
   text-align: center;
@@ -213,4 +216,30 @@
 .loadMoreTrigger {
   height: 50px;
   visibility: hidden;
+}
+
+.submitButton {
+  height: 35px;
+  border-radius: 12px;
+  background: $base-dark-color;
+  // background: linear-gradient(135deg, #4a4ae6, #6b6bff);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 74, 230, 0.3);
+
+  &:hover {
+    background: linear-gradient(135deg, #6b6bff, #4a4ae6);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 74, 230, 0.4);
+  }
+
+  &:active {
+    background: linear-gradient(135deg, #3a3ad6, #5a5aff);
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(74, 74, 230, 0.3);
+  }
 }

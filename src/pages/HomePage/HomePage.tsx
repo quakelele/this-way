@@ -1,4 +1,4 @@
-import styles from './Home.module.scss'
+import styles from './HomePage.module.scss'
 import { PrayerTimes } from 'entities/PrayerTimes/ui/PrayerTimes/PrayerTimes'
 
 import { DividerSvg as Divider } from 'shared/ui/DividerSvg/DividerSvg'
@@ -8,7 +8,7 @@ import {
   RandomAyah,
 } from 'widgets'
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
