@@ -35,7 +35,7 @@ export const QuranReader = () => {
         <Form layout="vertical">
           <Form.Item label="Сура">
             <Select
-            getPopupContainer={trigger => trigger.parentElement || document.body}
+            getPopupContainer={trigger => trigger.parentNode}
               className={styles.select}
               value={chapterId}
               onChange={handleChapterChange}
