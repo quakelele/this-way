@@ -1,14 +1,19 @@
-import { BookOutlined } from '@ant-design/icons';
-import styles from './SurahInfo.module.scss';
+import { BookOutlined } from '@ant-design/icons'
+import styles from './SurahInfo.module.scss'
+import { surahs } from 'entities/AyahCard/model/surahs'
 
-interface SurahInfoProps {
-  surahNumber: number;
-  surahName: string;
+interface Props {
+  surahNumber: string
 }
 
-export const SurahInfo: React.FC<SurahInfoProps> = ({ surahNumber, surahName }) => (
-  <div className={styles.surahInfo}>
-    <BookOutlined />
-    Сура {surahNumber}: {surahName}
-  </div>
-);
+export const SurahInfo = ({ surahNumber }: Props) => {
+
+  const surahName = surahNumber.split(':')[0]
+
+  return (
+    <div className={styles.surahInfo}>
+      <BookOutlined />
+      Сура: {`${surahs[surahName].russian} (${surahs[surahName].arabic})`}
+    </div>
+  )
+}
