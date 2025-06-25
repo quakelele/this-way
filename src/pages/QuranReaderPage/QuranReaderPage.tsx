@@ -1,10 +1,9 @@
-import QuranReader from 'features/QuranReader/ui/QuranReader/QuranReader'
-import React from 'react'
+import { QuranReader } from 'features/QuranReader/ui/QuranReader/QuranReader'
 
 export const QuranReaderPage = () => {
   return (
     <>
-    <QuranReader/>
+      <QuranReader />
     </>
   )
 }

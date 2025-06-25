@@ -4,15 +4,14 @@ import { useGetAyahsQuery } from 'features/QuranReader/api/quranApi'
 import { AyahCardQuran } from 'entities'
 import { Spin, Select, Form } from 'antd'
 import { Pagination } from 'features/Pagination/ui/Pagination/Pagination'
-import Favorites from 'features/Favorites/ui/Favorites/Favorites'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 
-const QuranReader = () => {
+export const QuranReader = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [currentView, setCurrentView] = useState<'reader' | 'favorites'>('reader')
+
   const [chapterId, setChapterId] = useState(1)
 
-  const { data, isLoading, isFetching, error } = useGetAyahsQuery(
+  const { data, isLoading, isFetching } = useGetAyahsQuery(
     { chapterId, page: currentPage },
     { refetchOnMountOrArgChange: true }
   )
@@ -31,18 +30,6 @@ const QuranReader = () => {
     <main className={styles.main}>
       <header className={styles.header}>
         <h1 className={styles.title}>Чтение Корана</h1>
-        <div className={styles.toggle}>
-          <button
-            className={currentView === 'reader' ? styles.active : ''}
-            onClick={() => setCurrentView('reader')}>
-            Аяты
-          </button>
-          <button
-            className={currentView === 'favorites' ? styles.active : ''}
-            onClick={() => setCurrentView('favorites')}>
-            Избранное
-          </button>
-        </div>
       </header>
 
       <section className={styles.controls}>
@@ -60,7 +47,7 @@ const QuranReader = () => {
               }}
               options={surahOptions.map(option => ({
                 value: option.value,
-                label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`
+                label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`,
               }))}
             />
           </Form.Item>
@@ -73,33 +60,24 @@ const QuranReader = () => {
             <Spin />
             <p className={styles.loadingText}>Загрузка аятов...</p>
           </div>
-        ) : error ? (
-          <div className={styles.status}>
-            <p className={styles.errorText}>
-              Ошибка: {error.message || 'Неизвестная ошибка'}
-            </p>
-          </div>
-        ) : currentView === 'reader' ? (
-          <>
-            <div className={styles.ayahList}>
-              {data?.ayahs?.map(ayah => (
-                <AyahCardQuran key={ayah.id} ayah={ayah} />
-              ))}
-            </div>
-            {data?.totalPages.length > 1 && (
+        ) : (
+          <div>
+            {data?.ayahs?.map(ayah => (
+              <AyahCardQuran
+                key={ayah.id}
+                ayah={ayah}
+              />
+            ))}
+            {data?.totalPages > 1 && (
               <Pagination
                 currentPage={currentPage}
                 totalPages={data.totalPages}
                 onPageChange={handlePageChange}
               />
             )}
-          </>
-        ) : (
-          <Favorites />
+          </div>
         )}
       </section>
     </main>
   )
 }
-
-export default QuranReader
