@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons'
 import styles from './AudioPlayer.module.scss'
 import { useGetAudioQuery } from 'features/QuranReader/api/quranApi'
+// import { useGetAudioQuery } from 'features/QuranReader/api/quranApi'
 
 interface Props {
   ayah: Ayah
@@ -70,7 +71,7 @@ const AudioPlayer = ({ ayah } : Props) => {
         onClick={handlePlay}
         disabled={isLoading || !audoUrl}
         title={
-          ayah.audioUrl
+          audoUrl
             ? isPlaying
               ? 'Пауза'
               : 'Воспроизвести аят'
@@ -89,7 +90,7 @@ const AudioPlayer = ({ ayah } : Props) => {
         onEnded={() => setIsPlaying(false)}
         preload="none"
       />
-      {!ayah.audioUrl && (
+      {!audoUrl && (
         <span className={styles.audioWarning}>Аудио для аята недоступно</span>
       )}
     </>

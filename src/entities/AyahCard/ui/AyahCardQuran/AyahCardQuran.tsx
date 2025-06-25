@@ -11,8 +11,6 @@ interface Props {
 
 export const AyahCardQuran: React.FC<Props> = ({ ayah }) => {
   const { data } = useGetTransliterationQuery(ayah.verse_key)
-  console.log('trans', data)
-  console.log('ayah', ayah)
   return (
     <div className={styles.ayahCard}>
       <div className={styles.ayahHeader}>

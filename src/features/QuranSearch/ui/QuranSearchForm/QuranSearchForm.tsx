@@ -24,7 +24,7 @@ export const QuranSearchForm = ({ setQuery, isLoading }: Props) => {
       searchText,
       selectedLanguage,
     })
-    console.log(values)
+
   }
   return (
     <Form

@@ -1,30 +1,46 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './QuranReader.module.scss'
-import { useGetAyahsQuery } from 'features/QuranReader/api/quranApi'
 import { AyahCardQuran } from 'entities'
-import { Spin, Select, Form } from 'antd'
+import { Spin, Select } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
-import { Pagination } from 'features/Pagination/ui/Pagination/Pagination'
+import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 
 export const QuranReader = () => {
-  const [currentPage, setCurrentPage] = useState(1)
   const [chapterId, setChapterId] = useState(1)
 
-  const { data, isLoading, isFetching } = useGetAyahsQuery(
-    { chapterId, page: currentPage },
-    { refetchOnMountOrArgChange: true }
-  )
+  const { data, isFetching, isLoading, fetchNextPage, hasNextPage } = useGetAyaInfiniteQuery(chapterId, {
+    refetchOnMountOrArgChange: true,
+  })
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const observerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!observerRef.current || isFetching || !hasNextPage) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          fetchNextPage()
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0,
+      }
+    )
+
+    observer.observe(observerRef.current)
+
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current)
+    }
+  }, [hasNextPage, isFetching, fetchNextPage])
 
   const handleChapterChange = (value: number) => {
     setChapterId(value)
-    setCurrentPage(1)
   }
-  console.log(data)
+
   return (
     <main className={styles.main}>
       <header className={styles.header}>
@@ -32,52 +48,55 @@ export const QuranReader = () => {
       </header>
 
       <section className={styles.controls}>
-        <Form layout="vertical">
-          <Form.Item label="Сура">
-            <Select
-            getPopupContainer={trigger => trigger.parentNode}
-              className={styles.select}
-              value={chapterId}
-              onChange={handleChapterChange}
-              showSearch
-              optionFilterProp="label"
-              filterOption={(input, option) =>
-                (option?.label as string)
-                  .toLowerCase()
-                  .includes(input.toLowerCase())
-              }
-              options={surahOptions.map(option => ({
-                value: option.value,
-                label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`,
-              }))}
-            />
-          </Form.Item>
-        </Form>
+        <div className={styles.selectWrapper}>
+          
+          <Select
+            className={styles.select}
+            value={chapterId}
+            onChange={handleChapterChange}
+            showSearch
+            optionFilterProp="label"
+            filterOption={(input, option) =>
+              (option?.label as string).toLowerCase().includes(input.toLowerCase())
+            }
+            options={surahOptions.map(option => ({
+              value: option.value,
+              label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`,
+            }))}
+            popupMatchSelectWidth={false}
+          />
+        </div>
       </section>
 
       <section className={styles.content}>
-        {(isLoading || isFetching) && (
+        {data?.pages.map((page, i) => (
+          <div key={i}>
+            {page.verses.map(ayah => (
+              <AyahCardQuran key={ayah.id} ayah={ayah} />
+            ))}
+          </div>
+        ))}
+
+        {isLoading && (
           <div className={styles.status}>
             <Spin />
             <p className={styles.loadingText}>Загрузка аятов...</p>
           </div>
         )}
 
-        {!isLoading &&
-          !isFetching &&
-          data?.verses?.map(ayah => (
-            <AyahCardQuran
-              key={ayah.id}
-              ayah={ayah}
-            />
-          ))}
+        <div ref={observerRef} style={{ height: 1 }} />
 
-        {!isLoading && !isFetching && data?.pagination?.total_pages > 1 && (
-          <Pagination
-            currentPage={data?.pagination?.current_page}
-            totalPages={data?.pagination.total_pages}
-            onPageChange={handlePageChange}
-          />
+        {isFetching && !isLoading && (
+          <div className={styles.status}>
+            <Spin />
+            <p className={styles.loadingText}>Загрузка...</p>
+          </div>
+        )}
+
+        {!hasNextPage && !isLoading && !isFetching && (
+          <div className={styles.status}>
+            <p className={styles.loadingText}>Все аяты прочитаны</p>
+          </div>
         )}
       </section>
     </main>
