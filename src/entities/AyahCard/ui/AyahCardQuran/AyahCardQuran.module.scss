@@ -11,7 +11,7 @@
   overflow: hidden;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-1px);
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
     border-color: rgba(34, 197, 94, 0.2);
 
@@ -44,7 +44,7 @@
 }
 
 .ayahNumber {
-    text-align: center;
+  text-align: center;
   background: linear-gradient(135deg, #f8fafc, #e2e8f0);
   color: #475569;
   padding: 0.75rem 1.25rem;
@@ -61,25 +61,27 @@
 }
 
 .arabicText {
-  font-size: 2.1rem;
+  font-size: 2.3rem;
   line-height: 4rem;
   text-align: right;
   color: #1a1a1a;
-  font-family: $arabic-description;
-//   font-family: 'Amiri', 'Times New Roman', serif;
+  font-family: $russian-description;
   margin-bottom: 2rem;
   direction: rtl;
   padding: 1rem;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.02), rgba(16, 185, 129, 0.02));
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.02),
+    rgba(16, 185, 129, 0.02)
+  );
   border-radius: 12px;
   border-right: 4px solid #22c55e;
 }
 
 .transliteration {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #6b7280;
   font-style: italic;
-  margin-bottom: 1.5rem;
   text-align: left;
   padding: 0.75rem 1rem;
   background: #f8fafc;
@@ -97,4 +99,54 @@
   background: linear-gradient(135deg, #fefefe, #f9fafb);
   border-radius: 12px;
   border: 1px solid #f3f4f6;
+}
+
+.customCollapse {
+  background: transparent;
+  border: none;
+
+  .ant-collapse-item {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+  
+  }
+
+  :global(.ant-collapse-header ){
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #374151;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    align-items: center;
+    
+   
+
+    .ant-collapse-arrow {
+      color: #22c55e;
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  .ant-collapse-content {
+    background: transparent;
+    border-top: none;
+    padding: 0 1rem 1rem;
+  }
+
+  .ant-collapse-content-box {
+    padding: 0!important;
+  }
+  :global(.ant-collapse-header-text) {
+    color: rgb(190, 190, 190);
+    font-family: $russian-subtitle;
+  }
+}
+
+.spin {
+  
 }

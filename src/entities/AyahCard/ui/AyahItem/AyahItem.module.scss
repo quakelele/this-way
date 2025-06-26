@@ -58,21 +58,15 @@
   font-size: 1rem;
 
   em {
-    background: linear-gradient(
-      270deg,
-      #000000fd,
-      #ff0000c2,
-      #9c9c9cd3,
-      #3b3b3b
-    );
+background-color: #fef08a;
     background-size: 400% 400%;
     animation: gradientShift 12s ease infinite;
     transition: transform 0.6s ease;
     // background: rgba(255, 255, 0, 0.582);
-    padding: 0.1rem 0.5rem;
+    padding: 0.1rem 0.1rem;
     border-radius: 10% 90% 8% 92% / 100% 0% 100% 0% ;
     transition: all 0.3s ease;
-    color: white;
+    color: black;
   }
   // font-family: $russian-description;
   :global(.highlighted) {

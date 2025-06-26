@@ -4,13 +4,15 @@ import { AyahCardQuran } from 'entities'
 import { Spin, Select } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
+import { reciters } from 'features/QuranReader/constants/reciters'
 
 export const QuranReader = () => {
   const [chapterId, setChapterId] = useState(1)
-
-  const { data, isFetching, isLoading, fetchNextPage, hasNextPage } = useGetAyaInfiniteQuery(chapterId, {
-    refetchOnMountOrArgChange: true,
-  })
+  const [reciter, setReciter] = useState('ar.alafasy')
+  const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
+    useGetAyaInfiniteQuery(chapterId, {
+      refetchOnMountOrArgChange: true,
+    })
 
   const observerRef = useRef<HTMLDivElement | null>(null)
 
@@ -31,7 +33,6 @@ export const QuranReader = () => {
     )
 
     observer.observe(observerRef.current)
-
     return () => {
       if (observerRef.current) observer.unobserve(observerRef.current)
     }
@@ -46,10 +47,8 @@ export const QuranReader = () => {
       <header className={styles.header}>
         <h1 className={styles.title}>Чтение Корана</h1>
       </header>
-
       <section className={styles.controls}>
         <div className={styles.selectWrapper}>
-          
           <Select
             className={styles.select}
             value={chapterId}
@@ -57,13 +56,22 @@ export const QuranReader = () => {
             showSearch
             optionFilterProp="label"
             filterOption={(input, option) =>
-              (option?.label as string).toLowerCase().includes(input.toLowerCase())
+              (option?.label as string)
+                .toLowerCase()
+                .includes(input.toLowerCase())
             }
             options={surahOptions.map(option => ({
               value: option.value,
               label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`,
             }))}
             popupMatchSelectWidth={false}
+          />
+          <Select
+            className={styles.select}
+            value={reciter}
+            onChange={setReciter}
+            options={reciters}
+            placeholder="Чтец"
           />
         </div>
       </section>
@@ -72,7 +80,11 @@ export const QuranReader = () => {
         {data?.pages.map((page, i) => (
           <div key={i}>
             {page.verses.map(ayah => (
-              <AyahCardQuran key={ayah.id} ayah={ayah} />
+              <AyahCardQuran
+                reciter={reciter}
+                key={ayah.id}
+                {...ayah}
+              />
             ))}
           </div>
         ))}
@@ -84,7 +96,10 @@ export const QuranReader = () => {
           </div>
         )}
 
-        <div ref={observerRef} style={{ height: 1 }} />
+        <div
+          ref={observerRef}
+          style={{ height: 1 }}
+        />
 
         {isFetching && !isLoading && (
           <div className={styles.status}>

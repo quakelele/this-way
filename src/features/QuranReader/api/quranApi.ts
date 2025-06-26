@@ -1,13 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import {
+  AyahAudioResponse,
+  AyahTransliterationResponse,
+  GetAyaArg,
+  GetAyaResponse,
+} from '../model/types'
 
 export const quranApi = createApi({
-  tagTypes: ['Ayas'],
+  tagTypes: ['ay'],
   reducerPath: 'quranApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.quran.com/api/v4/' }),
   endpoints: build => ({
-    getAya: build.infiniteQuery({
+    getAya: build.infiniteQuery<GetAyaResponse, number, number>({
       query: ({ queryArg: chapter_id, pageParam }) => {
-        // console.log('query chapterId', chapter_id)
         return {
           url: `verses/by_chapter/${chapter_id}?translations=45&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
         }
@@ -23,24 +28,35 @@ export const quranApi = createApi({
           return firstPageParam > 1 ? firstPageParam - 1 : undefined
         },
       },
-      providesTags: [{ type: 'Ayas', id: 'LIST' }],
+      providesTags: [{ type: 'ay', id: 'LIST' }],
     }),
-        getTransliteration: build.query<{ text: string }, string>({
-      query: (verseKey) => ({
+    getTransliteration: build.query<AyahTransliterationResponse, string>({
+      query: verseKey => ({
         url: `https://api.alquran.cloud/v1/ayah/${verseKey}/en.transliteration`,
         baseUrl: '',
       }),
     }),
-    getAudio: build.query<{ audio: any }, any>({
-      query: (verseKey) => ({
-        url: `https://api.alquran.cloud/v1/ayah/${verseKey}/ar.alafasy`,
-        baseUrl: '',
-      }),
+    getAudio: build.query<
+      AyahAudioResponse,
+      { surahKeys: string; reciter: string }
+    >({
+      query: ({ surahKeys, reciter }) => {
+        return {
+          url: `https://api.alquran.cloud/v1/ayah/${surahKeys}/${reciter}`,
+          baseUrl: '',
+        }
+      },
     }),
   }),
 })
 
-export const { useGetAyaInfiniteQuery, useGetAudioQuery, useGetTransliterationQuery } = quranApi
+export const {
+  useLazyGetTransliterationQuery,
+  useGetAyaInfiniteQuery,
+  useLazyGetAudioQuery,
+  useGetAudioQuery,
+  useGetTransliterationQuery,
+} = quranApi
 
 // import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { QuranResponse, Ayah } from '../model/types';

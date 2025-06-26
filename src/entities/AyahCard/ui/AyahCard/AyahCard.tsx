@@ -8,6 +8,7 @@ import { AyahItem } from 'entities'
 
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { Translation } from 'shared/model/types'
+import { AudioPlayer } from 'shared'
 
 type Props = {
   verse_key: string
@@ -17,7 +18,6 @@ type Props = {
 
 export const AyahCard = ({ verse_key, text, translations }: Props) => {
   const surahName = verse_key.split(':')[0]
-
 
   return (
     <Card
@@ -36,6 +36,11 @@ export const AyahCard = ({ verse_key, text, translations }: Props) => {
             </span>
           </div>
         </div>
+        <AudioPlayer
+          reciter={'ar.alafasy'}
+          size={1.8}
+          surahKeys={verse_key}
+        />
       </div>
 
       {translations.map(translation => (
@@ -51,7 +56,6 @@ export const AyahCard = ({ verse_key, text, translations }: Props) => {
   )
 }
 //   const [favorites, setFavorites] = useState<Verse[]>([])
-// console.log(surah.length)
 //   const toggle = (verse) => {
 //     const updated = favorites.find(item => item.name === verse.id)
 //   }

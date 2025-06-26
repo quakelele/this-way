@@ -56,3 +56,14 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
   }
+  .actionButtonRepeat {
+    background: #fefce8;
+    color: #facc15;
+    border-color: #facc15;
+  
+    &:hover:not(:disabled) {
+      background: rgba(250, 204, 21, 0.1);
+      color: #eab308;
+      border-color: #eab308;
+    }
+  }
