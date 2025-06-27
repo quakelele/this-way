@@ -9,6 +9,67 @@
   max-width: clamp(320px, 90vw, 640px);
 }
 
+.heroSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  // padding-top: 3rem;
 
+  @media (min-width: 768px) {
+    // padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
 
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
+  .heroContent {
+    h2 {
+      font-family: $russian-title;
+      font-size: 1.875rem; // text-3xl
+      font-weight: 700;
+      color: #111827; // text-gray-900
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+
+      @media (min-width: 768px) {
+        font-size: 2.25rem; // text-4xl
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 3rem; // text-5xl
+      }
+    }
+
+    p {
+   font-family: $russian-description;
+        font-size: 1.125rem; // text-lg
+        color: #4b5563; // text-gray-600
+        line-height: 1.75;
+   
+    }
+  }
+
+  .heroImage {
+    position: relative;
+
+    .heroImg {
+      width: 100%;
+      height: 16rem;
+
+      @media (min-width: 768px) {
+        height: 20rem;
+      }
+
+      @media (min-width: 1024px) {
+        height: 24rem;
+      }
+
+      object-fit: cover;
+      border-radius: 1rem;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { useLazyGetTransliterationQuery } from 'features/QuranReader/api/quranAp
 import { AudioPlayer } from 'shared'
 import { Collapse, Spin } from 'antd'
 import { useRef } from 'react'
+import { useTranslation } from 'shared/hooks/useTranslation'
 
 interface Props {
   translations: Translations[]
@@ -21,7 +22,7 @@ export const AyahCardQuran = ({
 }: Props) => {
   const [lazyTransliterationHandler, { data, isFetching }] =
     useLazyGetTransliterationQuery()
-
+    const { t } = useTranslation()
   const hasFetched = useRef(false)
 
   const handleCollapseChange = (key: string | string[]) => {
@@ -49,7 +50,7 @@ export const AyahCardQuran = ({
         items={[
           {
             key: '1',
-            label: 'Транскрипция',
+            label: t('Транскрипция'),
             children: isFetching ? (
               <Spin
                 style={{ color: 'gray' }}
@@ -64,7 +65,7 @@ export const AyahCardQuran = ({
         bordered={false}
         className={styles.customCollapse}
       />
-      <p className={styles.translation}>{translations[0].text}</p>
+      <p className={styles.translation}>{translations?.map(i => i.text)}</p>
       <SurahInfo surahNumber={verse_key} />
     </section>
   )

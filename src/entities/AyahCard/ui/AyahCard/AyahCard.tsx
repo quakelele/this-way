@@ -9,6 +9,7 @@ import { AyahItem } from 'entities'
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { Translation } from 'shared/model/types'
 import { AudioPlayer } from 'shared'
+import { useTranslation } from 'shared/hooks/useTranslation'
 
 type Props = {
   verse_key: string
@@ -17,6 +18,7 @@ type Props = {
 }
 
 export const AyahCard = ({ verse_key, text, translations }: Props) => {
+  const { t } = useTranslation()
   const surahName = verse_key.split(':')[0]
 
   return (
@@ -32,7 +34,7 @@ export const AyahCard = ({ verse_key, text, translations }: Props) => {
               className={styles.bookIcon}
             />
             <span>
-              {`${surahs[surahName].russian} ${surahs[surahName].arabic}`}
+              {`${t(surahs[surahName].russian)} ${surahs[surahName].arabic}`}
             </span>
           </div>
         </div>

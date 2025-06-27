@@ -37,8 +37,7 @@ export const LocationSetting = () => {
           ) : location ? (
             <em>
               <span className={location.isAuto ? styles.auto : styles.manual}>
-                {location.city}{' '}
-                {location.timezone}{' '}
+                {location.city} {location.timezone}{' '}
                 {location.isAuto
                   ? t('(определено авто.)')
                   : t('(выбрано вручную)')}
@@ -51,7 +50,7 @@ export const LocationSetting = () => {
         <Button
           onClick={() => setOpen(true)}
           className={styles.submitButton}>
-          Изменить
+          {t('Изменить')}
         </Button>
       </SettingItem>
 
@@ -104,6 +103,7 @@ export const LocationSetting = () => {
               name="timezone"
               label={t('Метод расчёта')}>
               <Select
+                defaultValue={methods[0].label}
                 placeholder={t('Выберите метод')}
                 options={methods}
               />

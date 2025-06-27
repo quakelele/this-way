@@ -5,17 +5,25 @@ import { Spin, Select } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
+import { useTranslation } from 'shared/hooks/useTranslation'
+import { options } from 'features/QuranSearch/utils/options'
 
 export const QuranReader = () => {
+  const { t } = useTranslation()
+
   const [chapterId, setChapterId] = useState(1)
   const [reciter, setReciter] = useState('ar.alafasy')
+  const [language, setLanguage] = useState(45)
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
-    useGetAyaInfiniteQuery(chapterId, {
-      refetchOnMountOrArgChange: true,
-    })
+    useGetAyaInfiniteQuery(
+      { chapterId, language }
+      // {
+      //   refetchOnMountOrArgChange: true,
+      // }
+    )
 
   const observerRef = useRef<HTMLDivElement | null>(null)
-
+  console.log(language)
   useEffect(() => {
     if (!observerRef.current || isFetching || !hasNextPage) return
 
@@ -41,14 +49,24 @@ export const QuranReader = () => {
   const handleChapterChange = (value: number) => {
     setChapterId(value)
   }
+  const handleLanguageChange = (value: number) => {
+    setLanguage(value)
+  }
 
   return (
     <main className={styles.main}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Чтение Корана</h1>
+        <h1 className={styles.title}>{t('Чтение Корана')}</h1>
       </header>
       <section className={styles.controls}>
         <div className={styles.selectWrapper}>
+          <Select
+            value={language}
+            className={styles.select}
+            options={options}
+            placeholder={t('Выберите язык')}
+            onChange={handleLanguageChange}
+          />
           <Select
             className={styles.select}
             value={chapterId}
@@ -62,7 +80,9 @@ export const QuranReader = () => {
             }
             options={surahOptions.map(option => ({
               value: option.value,
-              label: `Сура ${option.value}: ${option.label.russian} (${option.label.arabic})`,
+              label: `${t('Сура')} ${option.value}: ${t(
+                option.label.russian
+              )} (${option.label.arabic})`,
             }))}
             popupMatchSelectWidth={false}
           />
@@ -70,29 +90,30 @@ export const QuranReader = () => {
             className={styles.select}
             value={reciter}
             onChange={setReciter}
-            options={reciters}
+            options={reciters.map(option => ({
+              value: option.value,
+              label: `${t(option.label)}`,
+            }))}
             placeholder="Чтец"
           />
         </div>
       </section>
 
       <section className={styles.content}>
-        {data?.pages.map((page, i) => (
-          <div key={i}>
-            {page.verses.map(ayah => (
-              <AyahCardQuran
-                reciter={reciter}
-                key={ayah.id}
-                {...ayah}
-              />
-            ))}
-          </div>
-        ))}
+        {data?.pages.map(page =>
+          page.verses.map(ayah => (
+            <AyahCardQuran
+              reciter={reciter}
+              key={ayah.id}
+              {...ayah}
+            />
+          ))
+        )}
 
         {isLoading && (
           <div className={styles.status}>
             <Spin />
-            <p className={styles.loadingText}>Загрузка аятов...</p>
+            <p className={styles.loadingText}>{t('Загрузка аятов')}...</p>
           </div>
         )}
 
@@ -104,13 +125,13 @@ export const QuranReader = () => {
         {isFetching && !isLoading && (
           <div className={styles.status}>
             <Spin />
-            <p className={styles.loadingText}>Загрузка...</p>
+            <p className={styles.loadingText}>{t('Загрузка')}...</p>
           </div>
         )}
 
         {!hasNextPage && !isLoading && !isFetching && (
           <div className={styles.status}>
-            <p className={styles.loadingText}>Все аяты прочитаны</p>
+            <p className={styles.loadingText}>{t('Все аяты прочитаны')}</p>
           </div>
         )}
       </section>

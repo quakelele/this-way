@@ -10,4 +10,3 @@ export * from './QuranReader/ui/QuranReader/QuranReader'
 
 export * from './Favorites/ui/FavoriteButton/FavoriteButton'
 
-export * from './Pagination/ui/Pagination/Pagination'

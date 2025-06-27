@@ -5,16 +5,25 @@ import {
   GetAyaArg,
   GetAyaResponse,
 } from '../model/types'
+import {
+  QURAN_AUDIO_BASE_URL,
+  QURAN_TRANSLATION_BASE_URL,
+} from '../constants/urls'
 
 export const quranApi = createApi({
   tagTypes: ['ay'],
   reducerPath: 'quranApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.quran.com/api/v4/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: QURAN_TRANSLATION_BASE_URL }),
   endpoints: build => ({
-    getAya: build.infiniteQuery<GetAyaResponse, number, number>({
-      query: ({ queryArg: chapter_id, pageParam }) => {
+    getAya: build.infiniteQuery<
+      GetAyaResponse,
+      { chapterId: number; language: number },
+      number
+    >({
+      query: ({ queryArg: obj, pageParam }) => {
+        const { chapterId, language } = obj
         return {
-          url: `verses/by_chapter/${chapter_id}?translations=45&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
+          url: `verses/by_chapter/${chapterId}?translations=${language}&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
         }
       },
       infiniteQueryOptions: {

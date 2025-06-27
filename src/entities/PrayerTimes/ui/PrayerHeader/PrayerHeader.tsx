@@ -18,19 +18,15 @@ export const PrayerHeader: React.FC<PrayerHeaderProps> = ({
 }) => {
   // Отладка для проверки location
   const { t } = useTranslation()
-  const localizedDate = useLocalizedDate(location?.city)
+  const localizedDate = useLocalizedDate(location?.timezone)
   return (
     <div className={styles.header}>
       <div className={styles.time}>{currentTime.format('HH:mm')}</div>
       <div className={styles.date}>{localizedDate}</div>
-      {/* <div className={styles.date}>
-        {currentTime.format('dddd, DD MMMM')}{' '}
-        {location?.city ? `| ${location.city}` : `| ${t('Город не выбран')}`}
-      </div> */}
+
       <div className={styles.nextPrayer}>
         <ClockIcon className={styles.clockIcon} />
         <span className={styles.remainingTime}>
-          {/* {t('до')} {nextPrayer?.prayer || t('Н/Д')}: {nextPrayer?.remaining || 'Н/Д'} */}
           {nextPrayer?.remaining || t('Н/Д')}
         </span>
       </div>

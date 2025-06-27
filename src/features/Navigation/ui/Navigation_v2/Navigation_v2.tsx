@@ -7,7 +7,7 @@ import styles from './Navigation_v2.module.scss'
 import headerStyles from 'features/Navigation/styles/Header_v2.module.scss'
 import burgerStyles from 'features/Navigation/styles/Burger_v2.module.scss'
 import { navItems } from 'features/Navigation/lib/navConfig'
-
+import logo from 'assets/logo-1.png'
 export const Navigation_v2 = () => {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -52,7 +52,10 @@ export const Navigation_v2 = () => {
           <Link
             to={ROUTE.HOME}
             className={headerStyles.logo}>
-            Quran App
+            <img
+              width={120}
+              height={30}
+              src={logo}></img>
           </Link>
           <nav className={`${styles.navbar} ${isMenuOpen ? styles.open : ''}`}>
             {navItems.map(({ path, icon, label }) => (
