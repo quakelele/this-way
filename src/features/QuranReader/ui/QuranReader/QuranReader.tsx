@@ -19,6 +19,26 @@ export const QuranReader = () => {
   const [language, setLanguage] = useState(
     JSON.parse(localStorage.getItem('language')).translationLanguage
   )
+
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.pageYOffset
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsHeaderVisible(false)
+      } else {
+        setIsHeaderVisible(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
+
   const navigate = useNavigate()
 
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
@@ -66,7 +86,9 @@ export const QuranReader = () => {
         
       </header>
 
-      <section className={styles.controls}>
+      <section className={`${styles.controls} ${
+          isHeaderVisible ? styles.visible : styles.hidden
+        }`}>
         <div className={styles.selectWrapper}>
           <NavigateButton type="left" />
           <Select
