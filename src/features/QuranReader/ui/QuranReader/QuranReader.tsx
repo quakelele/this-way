@@ -7,20 +7,22 @@ import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { options } from 'features/QuranSearch/utils/options'
+import { useNavigate, useParams } from 'react-router'
+import { NavigateButton } from 'shared/ui/NavigateButton/NavigateButton'
+import { surahs } from 'entities/AyahCard/model/surahs'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
-
+  const { id } = useParams()
   const [chapterId, setChapterId] = useState(1)
   const [reciter, setReciter] = useState('ar.alafasy')
-  const [language, setLanguage] = useState(45)
+  const [language, setLanguage] = useState(
+    JSON.parse(localStorage.getItem('language')).translationLanguage
+  )
+  const navigate = useNavigate()
+
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
-    useGetAyaInfiniteQuery(
-      { chapterId, language }
-      // {
-      //   refetchOnMountOrArgChange: true,
-      // }
-    )
+    useGetAyaInfiniteQuery({ id, language })
 
   const observerRef = useRef<HTMLDivElement | null>(null)
   console.log(language)
@@ -48,25 +50,25 @@ export const QuranReader = () => {
 
   const handleChapterChange = (value: number) => {
     setChapterId(value)
+    navigate(`/${id}`)
   }
   const handleLanguageChange = (value: number) => {
     setLanguage(value)
   }
 
+  console.log(data)
   return (
     <main className={styles.main}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{t('Чтение Корана')}</h1>
+        <h1>
+          {t('Сура')}: {`${t(surahs[id].russian)}`} <p> {surahs[id].arabic}</p>
+        </h1>
+        
       </header>
+
       <section className={styles.controls}>
         <div className={styles.selectWrapper}>
-          <Select
-            value={language}
-            className={styles.select}
-            options={options}
-            placeholder={t('Выберите язык')}
-            onChange={handleLanguageChange}
-          />
+          <NavigateButton type="left" />
           <Select
             className={styles.select}
             value={chapterId}

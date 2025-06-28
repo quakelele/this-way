@@ -7,9 +7,9 @@ interface AudioButtonProps {
   size?: number;
   isActive?: boolean;
   isLoading?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
-  title: string;
+  title?: string;
 }
 
 export const AudioButton: FC<AudioButtonProps> = ({

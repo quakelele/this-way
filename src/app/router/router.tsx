@@ -1,5 +1,6 @@
 
 import App from "app/App";
+import { QuranReader } from "features";
 
 import {  BookmarkPage, HomePage, SearchPage, SettingPage } from "pages";
 import { QuranReaderPage } from "pages/QuranReaderPage/QuranReaderPage";
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         element: <BookmarkPage />,
       },
       {
+        path: "/:id",
+        element: <QuranReader />,
+      },
+      {
         path: ROUTE.SETTINGS,
         element: <SettingPage />,
       },
@@ -39,3 +44,5 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+// path="/:id" element={<ProductPage />}

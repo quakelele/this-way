@@ -65,7 +65,7 @@ export const AyahCardQuran = ({
         bordered={false}
         className={styles.customCollapse}
       />
-      <p className={styles.translation}>{translations?.map(i => i.text)}</p>
+      <p className={styles.translation}>{translations?.map(translation => translation.text)}</p>
       <SurahInfo surahNumber={verse_key} />
     </section>
   )

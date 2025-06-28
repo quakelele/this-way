@@ -17,13 +17,13 @@ export const quranApi = createApi({
   endpoints: build => ({
     getAya: build.infiniteQuery<
       GetAyaResponse,
-      { chapterId: number; language: number },
+      { id: number; language: number },
       number
     >({
       query: ({ queryArg: obj, pageParam }) => {
-        const { chapterId, language } = obj
+        const { id, language } = obj
         return {
-          url: `verses/by_chapter/${chapterId}?translations=${language}&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
+          url: `verses/by_chapter/${id}?translations=${language}&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
         }
       },
       infiniteQueryOptions: {

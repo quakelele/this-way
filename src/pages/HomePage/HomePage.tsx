@@ -23,6 +23,7 @@ export const HomePage = () => {
             .
           </p>
         </div>
+      
         <div className={styles.heroImage}>
           <img
             src={kaaba}

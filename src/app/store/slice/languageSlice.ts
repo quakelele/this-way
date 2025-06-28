@@ -9,8 +9,9 @@ const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'az'
 const initialLang = savedLang
   ? JSON.parse(savedLang)
   : {
-      selectedLanguage: 'Авто',
+      selectedLanguage: 'Русский',
       localLanguage: browserLang,
+      translationLanguage: 45
     }
 
 const languageSlice = createSlice({

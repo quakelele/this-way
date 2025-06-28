@@ -15,6 +15,7 @@ export const Localization = () => {
   const dispatch = useDispatch()
 
   const onFinish = (values: { selectedLanguage: string; localLanguage: string }) => {
+    console.log("form local storage", values)
     dispatch(setLanguage(values))
   }
 
@@ -43,10 +44,13 @@ export const Localization = () => {
         <Form.Item name="selectedLanguage" hidden>
           <Input type="hidden" />
         </Form.Item>
+        <Form.Item name="translationLanguage" hidden>
+          <Input type="hidden" />
+        </Form.Item>
 
         <Form.Item name="localLanguage">
           <Select
-            defaultValue={'Русский'}
+            // defaultValue={'Русский'}
             className={styles.select}
             options={localeOptions}
             onChange={(value, option) => {
@@ -54,6 +58,7 @@ export const Localization = () => {
               form.setFieldsValue({
                 localLanguage: value,
                 selectedLanguage: selected.selectedLanguage,
+                translationLanguage: selected.translationLanguage,
               })
             }}
           />
