@@ -11,7 +11,7 @@ import { localeOptions, LocalizationOptions } from '../utils/localeOptions'
 export const Localization = () => {
   const [form] = Form.useForm()
   const { t } = useTranslation()
-  const { selectedLanguage } = useSelector(state => state.language.lang)
+  const { selectedLanguage } = useSelector(state => state.language.lang )
   const dispatch = useDispatch()
 
   const onFinish = (values: { selectedLanguage: string; localLanguage: string }) => {

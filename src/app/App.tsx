@@ -11,7 +11,9 @@ const App = () => {
     <Layout className={styles.app}>
       <Navigation_v2 />
 
-      <div ref={parent}>
+      <div 
+      // ref={parent}
+      >
         <Outlet />
       </div>
     </Layout>

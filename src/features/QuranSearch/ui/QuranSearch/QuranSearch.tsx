@@ -1,56 +1,32 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import styles from './QuranSearch.module.scss'
 import { QuranSearchForm } from '../QuranSearchForm/QuranSearchForm'
 import { SearchFormTypes } from 'shared/model/types'
 import { useGetAyaInfiniteQuery } from 'features/QuranSearch/api/searchApi'
 import { AyahCard } from 'entities/AyahCard/ui/AyahCard/AyahCard'
 import { AyahCardSkeleton } from 'shared/ui/Skeletons/AyahCardSkeleton/AyahCardSkeleton'
-import { NavigationButtons } from 'features/NavigationButtons/NavigationButtons'
 import { useTranslation } from 'shared/hooks/useTranslation'
-import { Button } from 'antd'
+import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
 
 export const QuranSearch = () => {
   const [query, setQuery] = useState<SearchFormTypes>()
-  const { t } = useTranslation()
+
   const { data, isFetching, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery(query as SearchFormTypes, {
       skip: !query,
     })
 
-  const observerRef = useRef<IntersectionObserver | null>(null)
-  const loadMoreRef = useRef<HTMLDivElement | null>(null)
+    const observerRef = useIntersectionObserver({
+      isFetching,
+      hasNextPage,
+      fetchNextPage,
+    })
+    
+  const { t } = useTranslation()
 
   const allResults = data?.pages.flatMap(page => page.search.results) ?? []
   const totalResults = data?.pages[0]?.search?.total_results
-  const searchText = data?.pages[0]?.search?.query || ''
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    if (!hasNextPage || isFetching) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          fetchNextPage()
-        }
-      },
-      {
-        rootMargin: '300px',
-        threshold: 0.5,
-      }
-    )
-
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current)
-    }
-
-    observerRef.current = observer
-
-    return () => observer.disconnect()
-  }, [hasNextPage, isFetching, fetchNextPage])
 
   const renderResults = () => {
     if (isFetching && !allResults.length) {
@@ -78,7 +54,7 @@ export const QuranSearch = () => {
         ))}
         {hasNextPage && (
           <div
-            ref={loadMoreRef}
+            ref={observerRef}
             className={styles.loadMoreTrigger}
           />
         )}
@@ -98,7 +74,6 @@ export const QuranSearch = () => {
           setQuery={setQuery}
           isLoading={isFetching}
         />
-        {/* <NavigationButtons search={searchText} /> */}
 
         {data && (
           <section className={styles.results}>
@@ -109,12 +84,45 @@ export const QuranSearch = () => {
           </section>
         )}
       </div>
-      {/* <Button
+    </div>
+  )
+}
+
+// const searchText = data?.pages[0]?.search?.query || ''
+
+// const scrollToTop = () => {
+//   window.scrollTo({ top: 0, behavior: 'smooth' })
+// }
+/* <Button
         className={styles.submitButton}
         onClick={scrollToTop}>
         {' '}
         scroll up
-      </Button> */}
-    </div>
-  )
-}
+      </Button> */
+
+// const observerRef = useRef<IntersectionObserver | null>(null)
+// const loadMoreRef = useRef<HTMLDivElement | null>(null)
+
+// useEffect(() => {
+//   if (!hasNextPage || isFetching) return
+
+//   const observer = new IntersectionObserver(
+//     ([entry]) => {
+//       if (entry.isIntersecting) {
+//         fetchNextPage()
+//       }
+//     },
+//     {
+//       rootMargin: '300px',
+//       threshold: 0.5,
+//     }
+//   )
+
+//   if (loadMoreRef.current) {
+//     observer.observe(loadMoreRef.current)
+//   }
+
+//   observerRef.current = observer
+
+//   return () => observer.disconnect()
+// }, [hasNextPage, isFetching, fetchNextPage])

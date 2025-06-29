@@ -2,6 +2,7 @@ export type TranslationOption = {
   label: string
   value: number // selectedLanguage
   selectedLanguage: string
+  localLanguage: string
 }
 
 export const options = [

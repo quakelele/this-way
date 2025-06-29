@@ -2,7 +2,6 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { AudioButton } from '../AudioButton/AudioButton'
 import { useLazyGetAudioQuery } from 'features/QuranReader/api/quranApi'
 import styles from './AudioPlayer.module.scss'
-import { Select } from 'antd'
 
 interface AudioPlayerProps {
   surahKeys: string
@@ -43,7 +42,18 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ surahKeys, size = 3 ,reciter
     }
     
   }
-
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+  
+    // Сброс состояния при смене чтеца
+    audio.pause()
+    audio.src = ''
+    audio.load()
+    setIsPlaying(false)
+    setIsLoaded(false)
+    audio.currentTime = 0
+  }, [reciter])
 
   return (
     <div className={styles.controls}>

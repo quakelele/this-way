@@ -2,13 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   AyahAudioResponse,
   AyahTransliterationResponse,
-  GetAyaArg,
   GetAyaResponse,
 } from '../model/types'
-import {
-  QURAN_AUDIO_BASE_URL,
-  QURAN_TRANSLATION_BASE_URL,
-} from '../constants/urls'
+import { QURAN_TRANSLATION_BASE_URL } from '../constants/urls'
 
 export const quranApi = createApi({
   tagTypes: ['ay'],
@@ -17,13 +13,17 @@ export const quranApi = createApi({
   endpoints: build => ({
     getAya: build.infiniteQuery<
       GetAyaResponse,
-      { id: string; language: number },
+      {
+        id: string
+        language: { localLanguage: string; translationLanguage: number }
+      },
       number
     >({
       query: ({ queryArg: obj, pageParam }) => {
         const { id, language } = obj
+        console.log("RTK LANGUAGE", language)
         return {
-          url: `verses/by_chapter/${id}?translations=${language}&language=ru&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
+          url: `verses/by_chapter/${id}?translations=${language.translationLanguage}&language=${language.localLanguage}&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
         }
       },
       infiniteQueryOptions: {

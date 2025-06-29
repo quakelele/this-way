@@ -36,11 +36,9 @@ export const Navigation_v2 = () => {
         <div className={headerStyles.container}>
           <Link
             to={ROUTE.HOME}
+            style={{color:'gray'}}
             className={headerStyles.logo}>
-            <img
-              width={120}
-              height={30}
-              src={logo}></img>
+           QuranApp
           </Link>
           <nav className={`${styles.navbar} ${isMenuOpen ? styles.open : ''}`}>
             {navItems.map(({ path, icon, label }) => (

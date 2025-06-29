@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import styles from './QuranReader.module.scss'
 import { AyahCardQuran } from 'entities'
-import { Spin, Select } from 'antd'
+import { Spin, Select, Form, Input } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
@@ -11,6 +11,11 @@ import { NavigateButton } from 'shared/ui/NavigateButton/NavigateButton'
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
 import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
+import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
+import { options, TranslationOption } from 'features/QuranSearch/utils/options'
+import { setLanguage } from 'app/store/slice/languageSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { optionsQuranReader } from 'features/QuranReader/lib/optionsQuranReader'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
@@ -18,46 +23,36 @@ export const QuranReader = () => {
   const [chapterId, setChapterId] = useState(1)
   const [reciter, setReciter] = useState('ar.alafasy')
 
-  const [language] = useState(
-    JSON.parse(localStorage.getItem('language') || '').translationLanguage
-  )
+  // JSON.parse(localStorage.getItem('language') || '').translationLanguage
 
+  const language = useSelector(state => state.language.lang)
   const isVisible = useVisibleInScroll()
-
-  const navigate = useNavigate()
 
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery({ id, language })
 
-  const observerRef = useRef<HTMLDivElement | null>(null)
-  useEffect(() => {
-    if (!observerRef.current || isFetching || !hasNextPage) return
+  const observerRef = useIntersectionObserver({
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+  })
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          fetchNextPage()
-        }
-      },
-      {
-        root: null,
-        rootMargin: '100px',
-        threshold: 0,
-      }
-    )
+  const [form] = Form.useForm()
+  const navigate = useNavigate()
 
-    observer.observe(observerRef.current)
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current)
-    }
-  }, [hasNextPage, isFetching, fetchNextPage])
-
+  const dispatch = useDispatch()
   const handleChapterChange = (value: number) => {
     setChapterId(value)
-    navigate(`/${id}`)
+    navigate(`/${value}`)
   }
-
-  console.log(data)
+  const onFinish = (values: {
+    selectedLanguage: string
+    localLanguage: string
+  }) => {
+    console.log('form local storage', values)
+    localStorage.setItem('language', JSON.stringify(values))
+    dispatch(setLanguage(values))
+  }
   return (
     <main className={styles.main}>
       <section
@@ -72,6 +67,44 @@ export const QuranReader = () => {
         </header>
         <div className={styles.selectWrapper}>
           <NavigateButton type="left" />
+
+          <Form
+            onFinish={onFinish}
+            form={form}
+            layout="vertical"
+            className={styles.form}>
+            <Form.Item
+              name="selectedLanguage"
+              hidden>
+              <Input type="hidden" />
+            </Form.Item>
+            <Form.Item
+              name="localLanguage"
+              hidden>
+              <Input type="hidden" />
+            </Form.Item>
+
+            <Form.Item name="translationLanguage">
+              <Select
+                placeholder="Выберите перевод"
+                value={form.getFieldValue('localLanguage')}
+                className={styles.select}
+                options={optionsQuranReader}
+                onChange={(_, option) => {
+                 
+                  const selected = option  as TranslationOption
+                  form.setFieldsValue({
+                
+                    localLanguage: selected.localLanguage,
+                    translationLanguage: selected.value,
+                    selectedLanguage: selected.label,
+                  })
+                  form.submit()
+                }}
+              />
+            </Form.Item>
+          </Form>
+
           <Select
             className={styles.select}
             value={chapterId}
@@ -83,6 +116,7 @@ export const QuranReader = () => {
                 .toLowerCase()
                 .includes(input.toLowerCase())
             }
+            // `/${id}`
             options={surahOptions.map(option => ({
               value: option.value,
               label: `${t('Сура')} ${option.value}: ${t(
@@ -143,3 +177,20 @@ export const QuranReader = () => {
     </main>
   )
 }
+
+// const handleLanguageChange = (value: TranslationOption) => {
+//   const selected = options.find(opt => opt.value === (value as any))
+//   if (selected) setLanguage(selected.selectedLanguage)
+// }
+//
+//
+//
+// {/*
+//  <Select
+//   defaultValue={
+//     JSON.parse(localStorage.getItem('language') || '').selectedLanguage
+//   }
+//   onChange={handleLanguageChange}
+//   options={options}
+//   className={styles.select}
+// /> */}

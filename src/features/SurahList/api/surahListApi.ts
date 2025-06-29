@@ -7,7 +7,7 @@ export const surahListApi = createApi({
   endpoints: builder => ({
     getSurahListByLanguage: builder.query<Chapters, string>({
       query: language => ({
-        url: `https://api.quran.com/api/v4/chapters?language=${language}`,
+        url: `https://api.quran.com/api/v4/chapters?language=${language.localLanguage}`,
         baseUrl: '',
       }),
     }),

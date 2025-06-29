@@ -5,30 +5,46 @@ import { Select } from 'antd'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { options, TranslationOption } from 'features/QuranSearch/utils/options'
 import styles from './SurahList.module.scss'
+import { surahOptions } from 'features/QuranReader/constants/surahs'
+import { useNavigate } from 'react-router'
+import { useSelector } from 'react-redux'
 
 export const SurahsList = () => {
-  const [language, setLanguage] = useState(
-    JSON.parse(localStorage.getItem('language') || '').localLanguage
-  )
+  const language = useSelector(state => state.language.lang)
   const { t } = useTranslation()
   const { data, isFetching } = useGetSurahListByLanguageQuery(language)
+  const [chapterId, setChapterId] = useState(1)
 
-  const handleLanguageChange = (value: TranslationOption) => {
-    const selected = options.find(opt => opt.value === value as any )
-    if (selected) setLanguage(selected.selectedLanguage)
+  const handleChapterChange = (value: number) => {
+    setChapterId(value)
+    navigate(`/${value}`)
   }
-
+  const navigate = useNavigate()
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.title}>{t('holy_quran')}</h2>
+
+
         <Select
-          defaultValue={
-            JSON.parse(localStorage.getItem('language') || '').selectedLanguage
-          }
-          onChange={handleLanguageChange}
-          options={options}
           className={styles.select}
+          value={chapterId}
+          onChange={handleChapterChange}
+          showSearch
+          optionFilterProp="label"
+          filterOption={(input, option) =>
+            (option?.label as string)
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+          // `/${id}`
+          options={surahOptions.map(option => ({
+            value: option.value,
+            label: `${t('Сура')} ${option.value}: ${t(option.label.russian)} (${
+              option.label.arabic
+            })`,
+          }))}
+          popupMatchSelectWidth={false}
         />
       </header>
       <div className={styles.grid}>

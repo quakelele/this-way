@@ -52,7 +52,7 @@ export const SurahCard = ({
         onClick={() => navigate(`/${id}`)}
         className={styles.right}>
         <div className={styles.arabic}>{name_arabic}</div>
-        <div className={styles.verses}>{verses_count} ayə</div>
+        <div className={styles.verses}>{verses_count} {t('аятов')}</div>
       </div>
 
       <AudioButton

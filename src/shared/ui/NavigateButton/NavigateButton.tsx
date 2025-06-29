@@ -9,7 +9,7 @@ export const NavigateButton = ({ type }: Props) => {
   const navigate = useNavigate()
 
   return (
-    <>
+    <div className={styles.wrapper}>
       {type === 'left' ? (
         <button
           onClick={() => navigate(-1)}
@@ -25,6 +25,6 @@ export const NavigateButton = ({ type }: Props) => {
           Вперёд
         </button>
       )}
-    </>
+    </div>
   )
 }

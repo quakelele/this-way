@@ -4,13 +4,13 @@ import { createSlice } from '@reduxjs/toolkit'
 const savedLang = localStorage.getItem('language')
 
 // Если нет — определить по браузеру
-const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'az'
+// const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'az'
 
 const initialLang = savedLang
   ? JSON.parse(savedLang)
   : {
       selectedLanguage: 'Русский',
-      localLanguage: browserLang,
+      localLanguage: '',
       translationLanguage: 45
     }
 
