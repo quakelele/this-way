@@ -10,7 +10,7 @@ const initialLang = savedLang
   ? JSON.parse(savedLang)
   : {
       selectedLanguage: 'Русский',
-      localLanguage: '',
+      localLanguage: 'ru',
       translationLanguage: 45
     }
 

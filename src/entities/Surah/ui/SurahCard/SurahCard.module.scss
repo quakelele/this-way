@@ -16,7 +16,9 @@
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+-moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   }
 }
 
@@ -151,6 +153,10 @@
   width: fit-content;
 
   &.meccan {
+    &:hover {
+      background: #555555;
+      
+    }
     background: #979797;
     color: #ffffff;
     svg {
@@ -159,6 +165,9 @@
   }
 
   &.medinan {
+    &:hover {
+      background: #015358;
+    }
     background: #00818a;
     color: rgb(255, 255, 255);
     svg {

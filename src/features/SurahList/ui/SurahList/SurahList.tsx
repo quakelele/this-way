@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 
 export const SurahsList = () => {
   const language = useSelector(state => state.language.lang)
+  console.log(language)
   const { t } = useTranslation()
   const { data, isFetching } = useGetSurahListByLanguageQuery(language)
   const [chapterId, setChapterId] = useState(1)
@@ -48,6 +49,14 @@ export const SurahsList = () => {
         />
       </header>
       <div className={styles.grid}>
+       {data?.chapters.map(surah => (
+            <SurahCard
+              key={surah.id}
+              {...surah}
+            />
+          ))}
+      </div>
+      {/* <div className={styles.grid}>
         {isFetching ? (
           <div className={styles.skeleton}>{t('Загрузка')}...</div>
         ) : (
@@ -58,7 +67,7 @@ export const SurahsList = () => {
             />
           ))
         )}
-      </div>
+      </div> */}
     </div>
   )
 }

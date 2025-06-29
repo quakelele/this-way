@@ -27,7 +27,7 @@ export const QuranReader = () => {
 
   const language = useSelector(state => state.language.lang)
   const isVisible = useVisibleInScroll()
-
+console.log(reciter)
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery({ id, language })
 
