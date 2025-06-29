@@ -17,7 +17,7 @@ export const quranApi = createApi({
   endpoints: build => ({
     getAya: build.infiniteQuery<
       GetAyaResponse,
-      { id: number; language: number },
+      { id: string; language: number },
       number
     >({
       query: ({ queryArg: obj, pageParam }) => {

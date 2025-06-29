@@ -8,11 +8,11 @@ import headerStyles from 'features/Navigation/styles/Header_v2.module.scss'
 import burgerStyles from 'features/Navigation/styles/Burger_v2.module.scss'
 import { navItems } from 'features/Navigation/lib/navConfig'
 import logo from 'assets/logo-1.png'
+import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 export const Navigation_v2 = () => {
   const { t } = useTranslation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const isVisible = useVisibleInScroll()
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
@@ -27,26 +27,11 @@ export const Navigation_v2 = () => {
     }
   }, [isMenuOpen])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.pageYOffset
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsHeaderVisible(false)
-      } else {
-        setIsHeaderVisible(true)
-      }
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
-
   return (
     <>
       <header
         className={`${headerStyles.header} ${
-          isHeaderVisible ? headerStyles.visible : headerStyles.hidden
+          isVisible ? headerStyles.visible : headerStyles.hidden
         }`}>
         <div className={headerStyles.container}>
           <Link

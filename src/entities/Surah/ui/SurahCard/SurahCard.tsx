@@ -2,7 +2,7 @@ import { MapPin } from 'lucide-react'
 import { AudioButton } from 'shared'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import styles from './SurahCard.module.scss'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 type Props = {
   revelation_place: string
@@ -22,6 +22,7 @@ export const SurahCard = ({
   id,
 }: Props) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const getTypeColor = (type: string) => {
     return type === 'makkah' ? styles.meccan : styles.medinan
@@ -31,17 +32,25 @@ export const SurahCard = ({
     <div
       className={styles.card}
       style={{ animationDelay: `${id * 0.02}s` }}>
-      <div className={styles.number}>{id}</div>
+      <div
+        onClick={() => navigate(`/${id}`)}
+        className={styles.number}>
+        {id}
+      </div>
 
-      <div className={styles.content}>
-        <Link to={`/${id}`}><div className={styles.name}> {translated_name.name}</div></Link>
+      <div
+        onClick={() => navigate(`/${id}`)}
+        className={styles.content}>
+        <div className={styles.name}> {translated_name.name}</div>
         <div className={`${styles.typeTag} ${getTypeColor(revelation_place)}`}>
           <MapPin size={14} />
           {revelation_place === 'makkah' ? t('Мекканская') : t('Мединская')}
         </div>
       </div>
 
-      <div className={styles.right}>
+      <div
+        onClick={() => navigate(`/${id}`)}
+        className={styles.right}>
         <div className={styles.arabic}>{name_arabic}</div>
         <div className={styles.verses}>{verses_count} ayə</div>
       </div>

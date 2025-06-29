@@ -6,38 +6,23 @@ import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
 import { useTranslation } from 'shared/hooks/useTranslation'
-import { options } from 'features/QuranSearch/utils/options'
 import { useNavigate, useParams } from 'react-router'
 import { NavigateButton } from 'shared/ui/NavigateButton/NavigateButton'
 import { surahs } from 'entities/AyahCard/model/surahs'
+import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
+import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
-  const { id } = useParams()
+  const { id = '1' } = useParams()
   const [chapterId, setChapterId] = useState(1)
   const [reciter, setReciter] = useState('ar.alafasy')
-  const [language, setLanguage] = useState(
-    JSON.parse(localStorage.getItem('language')).translationLanguage
+
+  const [language] = useState(
+    JSON.parse(localStorage.getItem('language') || '').translationLanguage
   )
 
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.pageYOffset
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsHeaderVisible(false)
-      } else {
-        setIsHeaderVisible(true)
-      }
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
-
+  const isVisible = useVisibleInScroll()
 
   const navigate = useNavigate()
 
@@ -45,7 +30,6 @@ export const QuranReader = () => {
     useGetAyaInfiniteQuery({ id, language })
 
   const observerRef = useRef<HTMLDivElement | null>(null)
-  console.log(language)
   useEffect(() => {
     if (!observerRef.current || isFetching || !hasNextPage) return
 
@@ -72,23 +56,20 @@ export const QuranReader = () => {
     setChapterId(value)
     navigate(`/${id}`)
   }
-  const handleLanguageChange = (value: number) => {
-    setLanguage(value)
-  }
 
   console.log(data)
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
-        <h1>
-          {t('Сура')}: {`${t(surahs[id].russian)}`} <p> {surahs[id].arabic}</p>
-        </h1>
-        
-      </header>
-
-      <section className={`${styles.controls} ${
-          isHeaderVisible ? styles.visible : styles.hidden
+      <section
+        className={`${styles.controls} ${
+          isVisible ? styles.visible : styles.hidden
         }`}>
+        <header className={styles.header}>
+          <SurahTitle
+            surah_tr={t(surahs[id].russian)}
+            verse_id={id}
+          />
+        </header>
         <div className={styles.selectWrapper}>
           <NavigateButton type="left" />
           <Select

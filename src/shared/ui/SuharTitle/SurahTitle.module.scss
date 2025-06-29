@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+  .translated {
+    margin: 0;
+    font-family: $russian-title;
+    font-size: 1.5rem;
+    color: gray;
+   
+  }
+  .arabic  {
+    font-size: 0.5rem;
+    color: gray;
+    font-family: $arabic-title;
+    font-weight: 500;
+   
+  }
+ 
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}

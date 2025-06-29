@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useGetSurahListByLanguageQuery } from 'features/SurahList/api/surahListApi'
 import { SurahCard } from 'entities/Surah/ui/SurahCard/SurahCard'
 import { Select } from 'antd'
@@ -14,7 +14,7 @@ export const SurahsList = () => {
   const { data, isFetching } = useGetSurahListByLanguageQuery(language)
 
   const handleLanguageChange = (value: TranslationOption) => {
-    const selected = options.find(opt => opt.value === value)
+    const selected = options.find(opt => opt.value === value as any )
     if (selected) setLanguage(selected.selectedLanguage)
   }
 
@@ -23,7 +23,9 @@ export const SurahsList = () => {
       <header className={styles.header}>
         <h2 className={styles.title}>{t('holy_quran')}</h2>
         <Select
-          defaultValue={JSON.parse(localStorage.getItem('language') || '').selectedLanguage}
+          defaultValue={
+            JSON.parse(localStorage.getItem('language') || '').selectedLanguage
+          }
           onChange={handleLanguageChange}
           options={options}
           className={styles.select}
@@ -31,7 +33,7 @@ export const SurahsList = () => {
       </header>
       <div className={styles.grid}>
         {isFetching ? (
-      <div className={styles.skeleton}>{t('Загрузка')}...</div>
+          <div className={styles.skeleton}>{t('Загрузка')}...</div>
         ) : (
           data?.chapters.map(surah => (
             <SurahCard

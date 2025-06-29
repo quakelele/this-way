@@ -18,7 +18,7 @@ export const PrayerHeader: React.FC<PrayerHeaderProps> = ({
 }) => {
   // Отладка для проверки location
   const { t } = useTranslation()
-  const localizedDate = useLocalizedDate(location?.timezone)
+  const localizedDate = useLocalizedDate(location?.city)
   return (
     <div className={styles.header}>
       <div className={styles.time}>{currentTime.format('HH:mm')}</div>

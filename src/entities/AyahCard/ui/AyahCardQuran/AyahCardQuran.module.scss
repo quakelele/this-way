@@ -3,12 +3,14 @@
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 1.1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+ 
+
 
   &:hover {
     transform: translateY(-1px);
@@ -37,10 +39,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
   gap: 1rem;
   padding-bottom: 1.25rem;
-  border-bottom: 2px solid #f1f5f9;
 }
 
 .ayahNumber {
@@ -60,23 +60,7 @@
   align-items: center;
 }
 
-.arabicText {
-  font-size: 2.3rem;
-  line-height: 4rem;
-  text-align: right;
-  color: #1a1a1a;
-  font-family: $russian-description;
-  margin-bottom: 2rem;
-  direction: rtl;
-  padding: 1rem;
-  background: linear-gradient(
-    135deg,
-    rgba(34, 197, 94, 0.02),
-    rgba(16, 185, 129, 0.02)
-  );
-  border-radius: 12px;
-  border-right: 4px solid #22c55e;
-}
+
 
 .transliteration {
   font-size: 1.3rem;
@@ -87,6 +71,24 @@
   background: #f8fafc;
   border-radius: 8px;
   border-left: 3px solid #e5e7eb;
+}
+.arabicText {
+  font-size: 2.3rem;
+  line-height: 4rem;
+  text-align: right;
+  color: #1a1a1a;
+  font-family: $arabic-description;
+  direction: rtl;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 12px;
+  border-right: 4px solid #22c55e;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.02),
+    rgba(16, 185, 129, 0.02)
+  );
+
 }
 
 .translation {
@@ -110,11 +112,9 @@
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
-
-  
   }
 
-  :global(.ant-collapse-header ){
+  :global(.ant-collapse-header) {
     padding: 0.75rem 1rem;
     font-size: 1rem;
     font-weight: 300;
@@ -122,8 +122,6 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     align-items: center;
-    
-   
 
     .ant-collapse-arrow {
       color: #22c55e;
@@ -139,7 +137,7 @@
   }
 
   .ant-collapse-content-box {
-    padding: 0!important;
+    padding: 0 !important;
   }
   :global(.ant-collapse-header-text) {
     color: rgb(190, 190, 190);
@@ -148,5 +146,4 @@
 }
 
 .spin {
-
 }

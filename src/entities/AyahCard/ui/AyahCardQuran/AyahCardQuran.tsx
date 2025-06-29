@@ -24,7 +24,6 @@ export const AyahCardQuran = ({
     useLazyGetTransliterationQuery()
     const { t } = useTranslation()
   const hasFetched = useRef(false)
-
   const handleCollapseChange = (key: string | string[]) => {
     if (
       (key === '1' || (Array.isArray(key) && key.includes('1'))) &&

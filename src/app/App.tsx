@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Layout className={styles.app}>
       <Navigation_v2 />
-      {/* <Navigation /> */}
+
       <div ref={parent}>
         <Outlet />
       </div>
@@ -20,7 +20,3 @@ const App = () => {
 
 export default App
 
-{
-  /* <PatternSvg position="topLeft" />
-      <PatternSvg position="botRight" /> */
-}
