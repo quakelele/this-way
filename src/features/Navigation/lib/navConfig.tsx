@@ -9,11 +9,11 @@ import { ROUTE } from 'shared/lib/constants'
 import { HomePage } from 'pages'
 
 export const navItems = [
-  { path: ROUTE.HOME, icon: <House size={18} />, label: 'Главная' },
-  { path: ROUTE.SEARCH, icon: <Search size={18} />, label: 'Поиск' },
+  { path: ROUTE.HOME, icon: <House size={22} />, label: 'Главная' },
+  { path: ROUTE.SEARCH, icon: <Search size={22} />, label: 'Поиск' },
   // { path: ROUTE.BOOKMARK, icon: <FolderHeart size={18} />, label: 'Избранное' },
-  { path: ROUTE.READER, icon: <Book size={18} />, label: 'Чтение' },
-  { path: ROUTE.SETTINGS, icon: <Settings size={18} />, label: 'Настройки' },
+  { path: ROUTE.READER, icon: <Book size={22} />, label: 'Чтение' },
+  // { path: ROUTE.SETTINGS, icon: <Settings size={22} />, label: 'Настройки' },
 ]
 
 export const tabItems = [

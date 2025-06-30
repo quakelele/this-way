@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ClockCircleOutlined as ClockIcon } from '@ant-design/icons'
 import styles from '../PrayerTimes/PrayerTimes.module.scss'
 import { Dayjs } from 'dayjs'
@@ -17,6 +17,7 @@ export const PrayerHeader: React.FC<PrayerHeaderProps> = ({
   location,
 }) => {
   // Отладка для проверки location
+
   const { t } = useTranslation()
   const localizedDate = useLocalizedDate(location?.city)
   return (

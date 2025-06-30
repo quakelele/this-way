@@ -12,10 +12,11 @@ import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
 import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
-import { options, TranslationOption } from 'features/QuranSearch/utils/options'
+import { TranslationOption } from 'features/QuranSearch/utils/options'
 import { setLanguage } from 'app/store/slice/languageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { optionsQuranReader } from 'features/QuranReader/lib/optionsQuranReader'
+import { RootState } from 'app/store/store'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
@@ -25,9 +26,8 @@ export const QuranReader = () => {
 
   // JSON.parse(localStorage.getItem('language') || '').translationLanguage
 
-  const language = useSelector(state => state.language.lang)
+  const language = useSelector((state: RootState) => state.language.lang)
   const isVisible = useVisibleInScroll()
-console.log(reciter)
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery({ id, language })
 
@@ -39,102 +39,102 @@ console.log(reciter)
 
   const [form] = Form.useForm()
   const navigate = useNavigate()
-
   const dispatch = useDispatch()
+
   const handleChapterChange = (value: number) => {
     setChapterId(value)
     navigate(`/${value}`)
   }
+
   const onFinish = (values: {
     selectedLanguage: string
     localLanguage: string
+    translationLanguage: number
   }) => {
-    console.log('form local storage', values)
     localStorage.setItem('language', JSON.stringify(values))
     dispatch(setLanguage(values))
   }
+
   return (
     <main className={styles.main}>
       <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden
         }`}>
-        <header className={styles.header}>
-          <SurahTitle
-            surah_tr={t(surahs[id].russian)}
-            verse_id={id}
-          />
-        </header>
         <div className={styles.selectWrapper}>
-          <NavigateButton type="left" />
+          <header className={styles.header}>
+            <SurahTitle
+              surah_tr={t(surahs[id].russian)}
+              verse_id={id}
+            />
+          </header>
+          <div className={styles.formInner}>
+            <Form
+              onFinish={onFinish}
+              form={form}
+              layout="vertical"
+              className={styles.form}>
+              <Form.Item
+                name="selectedLanguage"
+                hidden>
+                <Input type="hidden" />
+              </Form.Item>
+              <Form.Item
+                name="localLanguage"
+                hidden>
+                <Input type="hidden" />
+              </Form.Item>
 
-          <Form
-            onFinish={onFinish}
-            form={form}
-            layout="vertical"
-            className={styles.form}>
-            <Form.Item
-              name="selectedLanguage"
-              hidden>
-              <Input type="hidden" />
-            </Form.Item>
-            <Form.Item
-              name="localLanguage"
-              hidden>
-              <Input type="hidden" />
-            </Form.Item>
+              <Form.Item name="translationLanguage">
+                <Select
+                  placeholder={t("Выберите перевод")}
+                  value={form.getFieldValue('localLanguage')}
+                  className={styles.select}
+                  options={optionsQuranReader}
+                  onChange={(_, option) => {
+                    const selected = option as TranslationOption
+                    form.setFieldsValue({
+                      localLanguage: selected.localLanguage,
+                      translationLanguage: selected.value,
+                      selectedLanguage: selected.label,
+                    })
+                    form.submit()
+                  }}
+                />
+              </Form.Item>
+            </Form>
 
-            <Form.Item name="translationLanguage">
-              <Select
-                placeholder="Выберите перевод"
-                value={form.getFieldValue('localLanguage')}
-                className={styles.select}
-                options={optionsQuranReader}
-                onChange={(_, option) => {
-                 
-                  const selected = option  as TranslationOption
-                  form.setFieldsValue({
-                
-                    localLanguage: selected.localLanguage,
-                    translationLanguage: selected.value,
-                    selectedLanguage: selected.label,
-                  })
-                  form.submit()
-                }}
-              />
-            </Form.Item>
-          </Form>
-
-          <Select
-            className={styles.select}
-            value={chapterId}
-            onChange={handleChapterChange}
-            showSearch
-            optionFilterProp="label"
-            filterOption={(input, option) =>
-              (option?.label as string)
-                .toLowerCase()
-                .includes(input.toLowerCase())
-            }
-            // `/${id}`
-            options={surahOptions.map(option => ({
-              value: option.value,
-              label: `${t('Сура')} ${option.value}: ${t(
-                option.label.russian
-              )} (${option.label.arabic})`,
-            }))}
-            popupMatchSelectWidth={false}
-          />
-          <Select
-            className={styles.select}
-            value={reciter}
-            onChange={setReciter}
-            options={reciters.map(option => ({
-              value: option.value,
-              label: `${t(option.label)}`,
-            }))}
-            placeholder="Чтец"
-          />
+            <Select
+              className={styles.select}
+              value={chapterId}
+              onChange={handleChapterChange}
+              showSearch
+              optionFilterProp="label"
+              filterOption={(input, option) =>
+                (option?.label as string)
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              // `/${id}`
+              options={surahOptions.map(option => ({
+                value: option.value,
+                label: `${t('Сура')} ${option.value}: ${t(
+                  option.label.russian
+                )} (${option.label.arabic})`,
+              }))}
+              popupMatchSelectWidth={false}
+            />
+            <Select
+              className={styles.select}
+              value={reciter}
+              onChange={setReciter}
+              options={reciters.map(option => ({
+                value: option.value,
+                label: `${t(option.label)}`,
+              }))}
+              placeholder="Чтец"
+            />
+          </div>
         </div>
       </section>
 

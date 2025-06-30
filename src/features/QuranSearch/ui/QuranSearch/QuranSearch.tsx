@@ -15,7 +15,7 @@ export const QuranSearch = () => {
     useGetAyaInfiniteQuery(query as SearchFormTypes, {
       skip: !query,
     })
-
+console.log('searchData', data)
     const observerRef = useIntersectionObserver({
       isFetching,
       hasNextPage,

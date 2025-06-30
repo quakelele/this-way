@@ -1,11 +1,40 @@
 $base-dark-color: #374151;
 $base-dark-light-color: #505b6d;
-$main-bg:#f9fafb;
+$main-bg: #f9fafb;
 
-$arabic-description: "Noto Naskh Arabic", serif;
-$arabic-title: "Noto Kufi Arabic", sans-serif;
-$arabic-quran: "Quran", sans-serif;
+$arabic-description: 'Noto Naskh Arabic', serif;
+$arabic-title: 'Noto Kufi Arabic', sans-serif;
+$arabic-quran: 'Quran', sans-serif;
 
-$russian-title: "Alumni Sans SC", sans-serif;
-$russian-subtitle: "Montserrat", sans-serif;
-$russian-description: "Open Sans", sans-serif;
+$russian-title: 'Alumni Sans SC', sans-serif;
+$russian-subtitle: 'Montserrat', sans-serif;
+$russian-description: 'Open Sans', sans-serif;
+
+$header-h: 64px;
+$drawer-w: min(85vw, 300px);
+$transition: 0.3s;
+
+
+
+:root {
+
+
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f0f0;
+  --bg-hover: #f3f3f3;
+  --accent: #ffffff;
+  --accent-light: #f2f2f3;
+  --text-primary: #2d2d2d;
+  --text-secondary: #555555;
+  --icon-color: #444444;
+}
+[data-theme='dark'] {
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #2a2a2a;
+  --bg-hover: #333333;
+  --accent: #7e7e80;
+  --accent-light: #d3d4d8;
+  --text-primary: #f0f0f0;
+  --text-secondary: #cccccc;
+  --icon-color: #dddddd;
+}

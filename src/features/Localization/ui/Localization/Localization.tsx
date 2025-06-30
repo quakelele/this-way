@@ -7,14 +7,15 @@ import { setLanguage } from 'app/store/slice/languageSlice'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { useDispatch, useSelector } from 'react-redux'
 import { localeOptions, LocalizationOptions } from '../utils/localeOptions'
+import { RootState } from 'app/store/store'
 
 export const Localization = () => {
   const [form] = Form.useForm()
   const { t } = useTranslation()
-  const { selectedLanguage } = useSelector(state => state.language.lang )
+  const { selectedLanguage } = useSelector((state:RootState ) => state.language.lang )
   const dispatch = useDispatch()
 
-  const onFinish = (values: { selectedLanguage: string; localLanguage: string }) => {
+  const onFinish = (values: { selectedLanguage: string; localLanguage: string , translationLanguage: number }) => {
     console.log("form local storage", values)
     dispatch(setLanguage(values))
   }

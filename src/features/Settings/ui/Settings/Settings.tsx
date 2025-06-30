@@ -20,11 +20,11 @@ export const Settings = () => {
 
             <LocationSetting />
           </div>
-          <div className={styles.section}>
+          {/* <div className={styles.section}>
             <h2>{t('Сменить язык')}</h2>
 
             <Localization />
-          </div>
+          </div> */}
 
           {/* <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Язык и регион</h2>

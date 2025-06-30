@@ -1,19 +1,16 @@
 import { Layout } from 'antd'
 import styles from './styles/App.module.scss'
-import { Navigation } from 'features'
 import { Outlet } from 'react-router'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { Navigation_v2 } from 'features/Navigation/ui/Navigation_v2/Navigation_v2'
+import { Header_V2 as Header } from 'widgets'
 
 const App = () => {
   const [parent] = useAutoAnimate(/* optional config */)
   return (
     <Layout className={styles.app}>
-      <Navigation_v2 />
+      <Header />
 
-      <div 
-      // ref={parent}
-      >
+      <div ref={parent}>
         <Outlet />
       </div>
     </Layout>
@@ -21,4 +18,3 @@ const App = () => {
 }
 
 export default App
-

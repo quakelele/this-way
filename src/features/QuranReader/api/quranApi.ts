@@ -21,7 +21,7 @@ export const quranApi = createApi({
     >({
       query: ({ queryArg: obj, pageParam }) => {
         const { id, language } = obj
-        console.log("RTK LANGUAGE", language)
+
         return {
           url: `verses/by_chapter/${id}?translations=${language.translationLanguage}&language=${language.localLanguage}&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
         }
