@@ -70,7 +70,6 @@
 }
 
 .form {
-  width: 12rem;
   display: flex;
   flex-direction: column;
   :global(.ant-form-item) {
@@ -139,7 +138,13 @@
 .formInner {
   display: flex;
   gap: 0.5rem;
-  align-items: start;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    :global(.ant-form-item) {
+      padding: 0!important;
+      margin: 0!important
+    }
+  }
 }
 
 .content {
