@@ -1,6 +1,6 @@
 import styles from './HomePage.module.scss'
 import { PrayerTimes } from 'entities/PrayerTimes/ui/PrayerTimes/PrayerTimes'
-import kaaba from 'assets/kaaba.jpeg'
+import kaaba from 'assets/kaaba.jpg'
 import { DividerSvg as Divider } from 'shared/ui/DividerSvg/DividerSvg'
 import {
   //  CustomWidget,
