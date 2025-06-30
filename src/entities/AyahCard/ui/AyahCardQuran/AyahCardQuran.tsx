@@ -6,6 +6,9 @@ import { AudioPlayer } from 'shared'
 import { Collapse, Spin } from 'antd'
 import { useRef } from 'react'
 import { useTranslation } from 'shared/hooks/useTranslation'
+import { RootState } from 'app/store/store'
+import { useSelector } from 'react-redux'
+import { AnimatePresence, motion } from 'motion/react'
 
 interface Props {
   translations: Translations[]
@@ -22,8 +25,10 @@ export const AyahCardQuran = ({
 }: Props) => {
   const [lazyTransliterationHandler, { data, isFetching }] =
     useLazyGetTransliterationQuery()
-    const { t } = useTranslation()
+  const { t } = useTranslation()
+
   const hasFetched = useRef(false)
+
   const handleCollapseChange = (key: string | string[]) => {
     if (
       (key === '1' || (Array.isArray(key) && key.includes('1'))) &&
@@ -45,6 +50,7 @@ export const AyahCardQuran = ({
         </div>
       </header>
       <p className={styles.arabicText}>{text_uthmani}</p>
+
       <Collapse
         items={[
           {
@@ -64,7 +70,10 @@ export const AyahCardQuran = ({
         bordered={false}
         className={styles.customCollapse}
       />
-      <p className={styles.translation}>{translations?.map(translation => translation.text)}</p>
+
+      <p className={styles.translation}>
+        {translations?.map(translation => translation.text)}
+      </p>
       <SurahInfo surahNumber={verse_key} />
     </section>
   )

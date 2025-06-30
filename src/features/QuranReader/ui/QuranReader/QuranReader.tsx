@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import styles from './QuranReader.module.scss'
 import { AyahCardQuran } from 'entities'
-import { Spin, Select, Form, Input } from 'antd'
+import { Spin, Select, Form, Input, Switch } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { useNavigate, useParams } from 'react-router'
-import { NavigateButton } from 'shared/ui/NavigateButton/NavigateButton'
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
 import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
@@ -23,9 +22,6 @@ export const QuranReader = () => {
   const { id = '1' } = useParams()
   const [chapterId, setChapterId] = useState(1)
   const [reciter, setReciter] = useState('ar.alafasy')
-
-  // JSON.parse(localStorage.getItem('language') || '').translationLanguage
-
   const language = useSelector((state: RootState) => state.language.lang)
   const isVisible = useVisibleInScroll()
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
@@ -87,7 +83,7 @@ export const QuranReader = () => {
 
               <Form.Item name="translationLanguage">
                 <Select
-                  placeholder={t("Выберите перевод")}
+                  placeholder={t('Выберите перевод')}
                   value={form.getFieldValue('localLanguage')}
                   className={styles.select}
                   options={optionsQuranReader}
@@ -115,7 +111,6 @@ export const QuranReader = () => {
                   .toLowerCase()
                   .includes(input.toLowerCase())
               }
-              // `/${id}`
               options={surahOptions.map(option => ({
                 value: option.value,
                 label: `${t('Сура')} ${option.value}: ${t(
@@ -134,6 +129,7 @@ export const QuranReader = () => {
               }))}
               placeholder="Чтец"
             />
+     
           </div>
         </div>
       </section>

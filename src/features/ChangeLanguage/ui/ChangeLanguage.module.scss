@@ -2,9 +2,10 @@
   position: relative;
 }
 .langToggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+ display: flex;
+align-items: center;
+
+ gap: 0.5rem;
   padding: 0.2rem 0.5rem;
   border-radius: 1rem;
   cursor: pointer;
@@ -12,6 +13,7 @@
   &:hover {
     background: var(--bg-hover);
   }
+
 }
 .langLabel {
   font-size: 0.9rem;
@@ -22,6 +24,10 @@
   border: 1px solid rgba(128, 128, 128, 0.103);
   position: absolute;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: start;
   background: var(--bg-primary);
   -webkit-box-shadow: 12px 16px 12px -9px rgba(34, 60, 80, 0.37);
   -moz-box-shadow: 12px 16px 12px -9px rgba(34, 60, 80, 0.37);

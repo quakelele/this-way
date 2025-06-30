@@ -1,31 +1,41 @@
 import { Card, Space } from 'antd'
 import styles from './CustomWidget.module.scss'
 import { WrapperSvg as IconWrapper } from 'shared/ui/WrapperSvg/WrapperSvg'
+import { useNavigate } from 'react-router'
+import { ROUTE } from 'shared/lib/constants'
+import { useTranslation } from 'shared/hooks/useTranslation'
+import { BookOpenCheck, SearchCheck } from 'lucide-react'
 
 export const CustomWidget = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
   return (
     <Space
-    direction="horizontal"
-    size={16}
-    className={styles.actions}>
-    <Card
-      className={styles.card}
-      hoverable>
-      <div className={styles.cardContent}>
-        <IconWrapper />
-        <h3 className={styles.cardTitle}>Поиск в Коране</h3>
-        <p className={styles.cardText}>Найти аяты и суры</p>
-      </div>
-    </Card>
-    <Card
-      className={styles.card}
-      hoverable>
-      <div className={styles.cardContent}>
-        <IconWrapper />
-        <h3 className={styles.cardTitle}>Настройки</h3>
-        <p className={styles.cardText}>Персонализация</p>
-      </div>
-    </Card>
-  </Space>
+      direction="horizontal"
+      size={16}
+      className={styles.actions}>
+      <Card
+        className={styles.card}
+        hoverable>
+        <div
+          onClick={() => navigate(ROUTE.SEARCH)}
+          className={styles.cardContent}>
+          <BookOpenCheck />
+          <h3 className={styles.cardTitle}>{t('Поиск')}</h3>
+          <p className={styles.cardText}>{t('Найдите аяты и получите духовное руководство')}</p>
+        </div>
+      </Card>
+      <Card
+        className={styles.card}
+        hoverable>
+        <div
+          onClick={() => navigate(ROUTE.READER)}
+          className={styles.cardContent}>
+          <SearchCheck />
+          <h3 className={styles.cardTitle}>{t('Чтение')}</h3>
+          <p className={styles.cardText}>{t('Священный Коран')} </p>
+        </div>
+      </Card>
+    </Space>
   )
 }

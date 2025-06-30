@@ -7,6 +7,6 @@ export * from './Bookmarks/ui/BookmarkStatistic/BookmarkStatistic'
 export * from './Bookmarks/ui/BookmarksList/BookmarksList'
 export * from './Bookmarks/ui/BookmarkFilters/BookmarkFilters'
 export * from './QuranReader/ui/QuranReader/QuranReader'
-
+export * from './ChangeLanguage/ui/ChangeLanguage'
 export * from './Favorites/ui/FavoriteButton/FavoriteButton'
 

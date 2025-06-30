@@ -26,7 +26,7 @@ export const SurahsList = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h2 className={styles.title}>{t('holy_quran')}</h2>
+        <h2 className={styles.title}>{t('Священный Коран')}</h2>
 
         <Select
           className={styles.select}

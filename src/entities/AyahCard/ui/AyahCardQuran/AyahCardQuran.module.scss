@@ -10,7 +10,10 @@
   position: relative;
   overflow: hidden;
  
-
+:global(.ant-collapse-content-box) {
+  padding: 0!important;
+  
+}
 
   &:hover {
     transform: translateY(-1px);

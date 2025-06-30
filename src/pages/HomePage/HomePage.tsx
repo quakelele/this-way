@@ -3,6 +3,7 @@ import { PrayerTimes } from 'entities/PrayerTimes/ui/PrayerTimes/PrayerTimes'
 import kaaba from 'assets/kaaba.jpg'
 import { DividerSvg as Divider } from 'shared/ui/DividerSvg/DividerSvg'
 import {
+  CustomWidget,
   //  CustomWidget,
   Header,
   RandomAyah,
@@ -23,7 +24,7 @@ export const HomePage = () => {
             .
           </p>
         </div>
-      
+
         <div className={styles.heroImage}>
           <img
             src={kaaba}
@@ -32,17 +33,15 @@ export const HomePage = () => {
           />
         </div>
       </div>
-      <Divider />
       <div className={styles.content}>
-        <Header />
 
         <Divider />
 
-        <PrayerTimes />
-
-        {/* <CustomWidget /> */}
+        <CustomWidget />
 
         <RandomAyah />
+      <Divider />
+
       </div>
     </div>
   )

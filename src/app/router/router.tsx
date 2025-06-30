@@ -2,7 +2,7 @@
 import App from "app/App";
 import { QuranReader } from "features";
 
-import {  BookmarkPage, HomePage, SearchPage, SettingPage } from "pages";
+import {  BookmarkPage, HomePage, PrayerTimePage, SearchPage, SettingPage } from "pages";
 import { QuranReaderPage } from "pages/QuranReaderPage/QuranReaderPage";
 import { createBrowserRouter } from "react-router-dom";
 import { ROUTE } from "shared/lib/constants";
@@ -39,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTE.READER,
         element: <QuranReaderPage />,
+      },
+      {
+        path: ROUTE.PRAYER,
+        element: <PrayerTimePage />,
       },
 
     ],

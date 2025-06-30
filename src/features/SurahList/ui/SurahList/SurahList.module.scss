@@ -14,9 +14,10 @@
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #1e293b;
+  font-family: $russian-title;
 }
 
 .select {
@@ -36,7 +37,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.25rem;
+  gap: 0.5rem;
 }
 
 

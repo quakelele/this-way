@@ -5,6 +5,7 @@ export interface Language {
   selectedLanguage: string
   localLanguage: string
   translationLanguage: number
+
 }
 
 interface LanguageState {
@@ -21,6 +22,7 @@ const initialLang: Language = savedLang
       selectedLanguage: 'Русский',
       localLanguage: 'ru',
       translationLanguage: 45,
+      isTransliteration: false
     }
 
 const initialState: LanguageState = {
