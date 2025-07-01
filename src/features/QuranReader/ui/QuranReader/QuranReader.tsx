@@ -37,7 +37,7 @@ export const QuranReader = () => {
   const [isVisibleTransliteration, setIsVisibleTransliteration] = useState(
     JSON.parse(localStorage.getItem('language') || '')?.isVisibleTrans
   )
-  console.log()
+
 
   const [quranToggle, setQuranToggle] = useState(false)
 
@@ -50,11 +50,15 @@ export const QuranReader = () => {
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery({ id: chapterId.toString(), language })
 
+
+    
+
   // Для бесконечного скролла
   const observerRef = useIntersectionObserver({
     isFetching,
     hasNextPage,
     fetchNextPage,
+    quranToggle,
   })
 
   const onTransliterationVisibleChange: CheckboxProps['onChange'] = e => {
