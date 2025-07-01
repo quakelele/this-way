@@ -7,8 +7,8 @@
 }
 
 .arabic {
-  font-size: 3rem;
-  line-height: 4rem;
+  font-size: 2.5rem;
+  line-height: 5rem;
   text-align: right;
   color: #1a1a1a;
   font-family: $arabic-description;
@@ -22,6 +22,10 @@
     rgba(34, 197, 94, 0.02),
     rgba(16, 185, 129, 0.02)
   );
+  @media (max-width: 768px) {
+    line-height: 4rem;
+    font-size: 2rem;
+  }
 }
 
 .translation {

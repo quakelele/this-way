@@ -1,7 +1,7 @@
 import parse, { domToReact, Element, DOMNode } from 'html-react-parser'
 import styles from './RenderTajweed.module.scss'
 
-export const renderTajweed = (text: string) => {
+export const RenderTajweed = (text: string) => {
   return parse(text, {
     replace: (domNode: DOMNode) => {
       if (

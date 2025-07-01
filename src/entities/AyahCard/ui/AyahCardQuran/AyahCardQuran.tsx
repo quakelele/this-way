@@ -8,7 +8,7 @@ import { Collapse, Spin } from 'antd'
 import { useRef } from 'react'
 import { useTranslation } from 'shared/hooks/useTranslation'
 
-import { renderTajweed } from '../RenderTajweed/RenderTajweed'
+import { RenderTajweed } from '../RenderTajweed/RenderTajweed'
 interface Props {
   translations: Translations[]
   text_uthmani: string
@@ -54,7 +54,7 @@ export const AyahCardQuran = ({
 
       <div className={styles.card}>
         <div className={stylesTajweed.arabic}>
-          {renderTajweed(text_uthmani_tajweed || text_uthmani)}
+          {RenderTajweed(text_uthmani_tajweed || text_uthmani)}
         </div>
       </div>
 
