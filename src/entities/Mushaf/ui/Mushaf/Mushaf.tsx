@@ -15,9 +15,8 @@ export const Mushaf = ({ chapterId }: Props) => {
   const [direction, setDirection] = useState<1 | -1>(1)
 
   const { t } = useTranslation()
-  const { data, isFetching } = useGetMushafPageQuery(page)
+  const { data,  } = useGetMushafPageQuery(page)
 
-  const [parent] = useAutoAnimate(/* optional config */)
 
   useEffect(() => {
     setPage(quranSurahPages[chapterId])
