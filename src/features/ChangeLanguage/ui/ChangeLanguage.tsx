@@ -36,7 +36,7 @@ export const ChangeLanguage = () => {
         onClick={() => setLangOpen(prev => !prev)}
         aria-label="Select language">
         <Globe size={20} />
-        <span className={styles.langLabel}>{localLanguage.toUpperCase()}</span>
+        <span className={styles.langLabel}>{localLanguage?.toUpperCase()}</span>
       </button>
       {langOpen && (
         <ul className={styles.langDropdown}>

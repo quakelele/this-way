@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './QuranReader.module.scss'
 import { AyahCardQuran } from 'entities'
-import { Spin, Select, Form, Input, Switch } from 'antd'
+import { Spin, Select, Checkbox } from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
@@ -11,44 +11,89 @@ import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
 import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
-import { TranslationOption } from 'features/QuranSearch/utils/options'
+import {
+  TranslationOption,
+  optionsQuranReader,
+} from 'features/QuranReader/lib/optionsQuranReader'
 import { setLanguage } from 'app/store/slice/languageSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { optionsQuranReader } from 'features/QuranReader/lib/optionsQuranReader'
 import { RootState } from 'app/store/store'
+import { CheckboxProps } from 'antd/lib'
+import { Mushaf } from 'entities/Mushaf/ui/Mushaf/Mushaf'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
   const { id = '1' } = useParams()
-  const [chapterId, setChapterId] = useState(1)
-  const [reciter, setReciter] = useState('ar.alafasy')
-  const language = useSelector((state: RootState) => state.language.lang)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const isVisible = useVisibleInScroll()
-  const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
-    useGetAyaInfiniteQuery({ id, language })
 
+  // Получаем язык из редакса
+  const language = useSelector((state: RootState) => state.language.lang)
+
+  // Локальный стейт для выбранной суры и чтеца
+  const [chapterId, setChapterId] = useState<number>(Number(id) || 1)
+  const [reciter, setReciter] = useState<string>('ar.alafasy')
+  const [isVisibleTransliteration, setIsVisibleTransliteration] = useState(
+    JSON.parse(localStorage.getItem('language') || '')?.isVisibleTrans
+  )
+  console.log()
+
+  const [quranToggle, setQuranToggle] = useState(false)
+
+  // При смене url синхронизируем chapterId
+  useEffect(() => {
+    setChapterId(Number(id) || 1)
+  }, [id])
+
+  // Получаем аяты по текущей суре и языку
+  const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
+    useGetAyaInfiniteQuery({ id: chapterId.toString(), language })
+
+  // Для бесконечного скролла
   const observerRef = useIntersectionObserver({
     isFetching,
     hasNextPage,
     fetchNextPage,
   })
 
-  const [form] = Form.useForm()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const onTransliterationVisibleChange: CheckboxProps['onChange'] = e => {
+    setIsVisibleTransliteration(e.target.checked)
+    // console.log(isVisibleTransliteration)
+    const newOption = {
+      ...language,
+      isVisibleTrans: e.target.checked,
+    }
+    dispatch(setLanguage(newOption))
+    localStorage.setItem('language', JSON.stringify(newOption))
+  }
+  // Смена перевода — обновляем redux + localStorage
+  const onLanguageChange = (value: number, option: TranslationOption) => {
+    const newLang = {
+      selectedLanguage: option.label,
+      localLanguage: option.localLanguage,
+      translationLanguage: option.value,
+      isTajweedEnabled: language.isTajweedEnabled,
+    }
+    dispatch(setLanguage(newLang))
+    localStorage.setItem('language', JSON.stringify(newLang))
+  }
 
+  // Смена таджвида
+  const onTajweedChange: CheckboxProps['onChange'] = e => {
+    const newLang = { ...language, isTajweedEnabled: e.target.checked }
+    dispatch(setLanguage(newLang))
+    localStorage.setItem('language', JSON.stringify(newLang))
+  }
+  const onMushafVisible: CheckboxProps['onChange'] = e => {
+    setQuranToggle(e.target.checked)
+    console.log(quranToggle)
+  }
+
+  // Смена суры (в адресной строке и стейте)
   const handleChapterChange = (value: number) => {
     setChapterId(value)
     navigate(`/${value}`)
-  }
-
-  const onFinish = (values: {
-    selectedLanguage: string
-    localLanguage: string
-    translationLanguage: number
-  }) => {
-    localStorage.setItem('language', JSON.stringify(values))
-    dispatch(setLanguage(values))
   }
 
   return (
@@ -60,45 +105,28 @@ export const QuranReader = () => {
         <div className={styles.selectWrapper}>
           <header className={styles.header}>
             <SurahTitle
-              surah_tr={t(surahs[id].russian)}
-              verse_id={id}
+              surah_tr={t(surahs[chapterId.toString()]?.russian || '')}
+              verse_id={chapterId.toString()}
             />
           </header>
-          <div className={styles.formInner}>
-            <Form
-              onFinish={onFinish}
-              form={form}
-              layout="vertical"
-              className={styles.form}>
-              <Form.Item
-                name="selectedLanguage"
-                hidden>
-                <Input type="hidden" />
-              </Form.Item>
-              <Form.Item
-                name="localLanguage"
-                hidden>
-                <Input type="hidden" />
-              </Form.Item>
 
-              <Form.Item name="translationLanguage">
-                <Select
-                  placeholder={t('Выберите перевод')}
-                  value={form.getFieldValue('localLanguage')}
-                  className={styles.select}
-                  options={optionsQuranReader}
-                  onChange={(_, option) => {
-                    const selected = option as TranslationOption
-                    form.setFieldsValue({
-                      localLanguage: selected.localLanguage,
-                      translationLanguage: selected.value,
-                      selectedLanguage: selected.label,
-                    })
-                    form.submit()
-                  }}
-                />
-              </Form.Item>
-            </Form>
+          <div className={styles.formInner}>
+            <Select
+              placeholder={t('Выберите перевод')}
+              className={styles.select}
+              options={optionsQuranReader}
+              value={language.translationLanguage}
+              onChange={(val, opt) =>
+                onLanguageChange(val as number, opt as TranslationOption)
+              }
+              showSearch
+              optionFilterProp="label"
+              filterOption={(input, option) =>
+                (option?.label as string)
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+            />
 
             <Select
               className={styles.select}
@@ -119,74 +147,82 @@ export const QuranReader = () => {
               }))}
               popupMatchSelectWidth={false}
             />
+
             <Select
               className={styles.select}
               value={reciter}
               onChange={setReciter}
               options={reciters.map(option => ({
                 value: option.value,
-                label: `${t(option.label)}`,
+                label: t(option.label),
               }))}
-              placeholder="Чтец"
+              placeholder={t('Чтец')}
             />
-     
+            <div className={styles.checkboxes}>
+              <Checkbox
+                className={styles.checkBox}
+                checked={language.isTajweedEnabled}
+                onChange={onTajweedChange}>
+                {t('Таджвид')}
+              </Checkbox>
+              <Checkbox
+                className={styles.checkBox}
+                checked={isVisibleTransliteration}
+                onChange={onTransliterationVisibleChange}>
+                {t('Переводы')}
+              </Checkbox>
+              <Checkbox
+                className={styles.checkBox}
+                checked={quranToggle}
+                onChange={onMushafVisible}>
+                {t('Мусхаф')}
+              </Checkbox>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={styles.content}>
-        {data?.pages.map(page =>
-          page.verses.map(ayah => (
-            <AyahCardQuran
-              reciter={reciter}
-              key={ayah.id}
-              {...ayah}
-            />
-          ))
-        )}
+      {quranToggle ? (
+        <Mushaf chapterId={chapterId} />
+      ) : (
+        <section className={styles.content}>
+          {data?.pages.map(page =>
+            page.verses.map(ayah => (
+              <AyahCardQuran
+                isVisible={isVisibleTransliteration}
+                key={ayah.id}
+                reciter={reciter}
+                {...ayah}
+              />
+            ))
+          )}
 
-        {isLoading && (
-          <div className={styles.status}>
-            <Spin />
-            <p className={styles.loadingText}>{t('Загрузка аятов')}...</p>
-          </div>
-        )}
+          {isLoading && (
+            <div className={styles.status}>
+              <Spin />
+              <p className={styles.loadingText}>{t('Загрузка аятов')}...</p>
+            </div>
+          )}
 
-        <div
-          ref={observerRef}
-          style={{ height: 1 }}
-        />
+          <div
+            ref={observerRef}
+            style={{ height: 1 }}
+          />
 
-        {isFetching && !isLoading && (
-          <div className={styles.status}>
-            <Spin />
-            <p className={styles.loadingText}>{t('Загрузка')}...</p>
-          </div>
-        )}
+          {isFetching && !isLoading && (
+            <div className={styles.status}>
+              <Spin />
+              <p className={styles.loadingText}>{t('Загрузка')}...</p>
+            </div>
+          )}
 
-        {!hasNextPage && !isLoading && !isFetching && (
-          <div className={styles.status}>
-            <p className={styles.loadingText}>{t('Все аяты прочитаны')}</p>
-          </div>
-        )}
-      </section>
+          {!hasNextPage && !isLoading && !isFetching && (
+            <div className={styles.status}>
+              <p className={styles.loadingText}>{t('Все аяты прочитаны')}</p>
+            </div>
+          )}
+        </section>
+      )}
     </main>
   )
 }
-
-// const handleLanguageChange = (value: TranslationOption) => {
-//   const selected = options.find(opt => opt.value === (value as any))
-//   if (selected) setLanguage(selected.selectedLanguage)
-// }
-//
-//
-//
-// {/*
-//  <Select
-//   defaultValue={
-//     JSON.parse(localStorage.getItem('language') || '').selectedLanguage
-//   }
-//   onChange={handleLanguageChange}
-//   options={options}
-//   className={styles.select}
-// /> */}

@@ -1,0 +1,89 @@
+.card {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #fff;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.arabic {
+  font-size: 3rem;
+  line-height: 4rem;
+  text-align: right;
+  color: #1a1a1a;
+  font-family: $arabic-description;
+  direction: rtl;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 12px;
+  border-right: 4px solid #22c55e;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.02),
+    rgba(16, 185, 129, 0.02)
+  );
+}
+
+.translation {
+  font-size: 1rem;
+  line-height: 1.6rem;
+  color: #333;
+  text-align: left;
+}
+
+.tajweed {
+  padding: 1 1px;
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.madda_necessary {
+  color: #ff0000;
+}
+
+.madda_normal {
+  color: #007dfa;
+}
+
+.ham_wasl {
+  color: #22c52a;
+}
+.idgham_wo_ghunnah {
+  color: #8614b8;
+}
+
+.madda_permissible {
+  color: #fbc02d;
+}
+
+.laam_shamsiyah {
+    color: #e91e63; // розовый, мягкое солнце
+  }
+  
+  .ikhafa {
+    color: #00bcd4; // голубой, скрытие
+  }
+  
+  .ghunnah {
+    color: #4caf50; // зелёный, носовой звук
+  }
+  
+  .slnt {
+    color: #9e9e9e; // серый, молчание (silent)
+  }
+  
+  .madda_obligatory {
+    color: #d50000; // тёмно-красный, обязательное продление
+  }
+  
+  .qalaqah {
+    color: #ff9800; // оранжевый, вибрация
+  }
+  
+  .idgham_shafawi {
+    color: #3f51b5; // индиго, губное слияние
+  }
+  
+  .idgham_ghunnah {
+    color: #673ab7; // фиолетовый, слияние с гунной
+  }

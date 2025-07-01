@@ -1,0 +1,88 @@
+.tajweed {
+  padding: 2 1px;
+  border-radius: 4px;
+  cursor: help;
+}
+
+// 🌈 Цвета таджвида
+.madda_necessary {
+  color: #ff0000;
+}
+
+.madda_normal {
+  color: #007dfa;
+}
+
+.ham_wasl {
+  color: #22c52a;
+}
+
+.idgham_wo_ghunnah {
+  color: #8614b8;
+}
+
+.madda_permissible {
+  color: #fbc02d;
+}
+
+.laam_shamsiyah {
+  color: #e91e63;
+}
+
+.ikhafa {
+  color: #00bcd4;
+}
+
+.ghunnah {
+  color: #4caf50;
+}
+
+.slnt {
+  color: #9e9e9e;
+}
+
+.madda_obligatory {
+  color: #d50000;
+}
+
+.qalaqah {
+  color: #ff9800;
+}
+
+.idgham_shafawi {
+  color: #3f51b5;
+}
+
+.idgham_ghunnah {
+  color: #673ab7;
+}
+
+.izhar,
+.izhar_halqi {
+  color: #795548;
+}
+
+.iqlab {
+  color: #009688;
+}
+
+.ikhfa_meem,
+.ikhfa_meem_shafawi {
+  color: #607d8b;
+}
+
+.izhar_shafawi {
+  color: #8bc34a;
+}
+
+.ayahEnd {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+  background: #eee;
+  border-radius: 50%;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+  font-weight: bold;
+  color: #000;
+  line-height: 1;
+}

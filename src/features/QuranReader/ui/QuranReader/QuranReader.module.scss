@@ -24,7 +24,11 @@
   //  border-bottom-right-radius: 0;
   //  border-top-left-radius: 0;
 }
-
+.checkboxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .toggle {
   display: flex;
   gap: 1rem;
@@ -90,6 +94,7 @@
   }
 }
 
+
 .select,
 .input {
   // width: 100%;
@@ -144,6 +149,15 @@
       padding: 0!important;
       margin: 0!important
     }
+  }
+  :global(.ant-checkbox-wrapper) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  :global(.ant-checkbox) {
+
   }
 }
 

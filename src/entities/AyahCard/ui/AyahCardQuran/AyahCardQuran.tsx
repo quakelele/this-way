@@ -1,32 +1,34 @@
 import { Translations } from 'features/QuranReader/model/types'
 import styles from './AyahCardQuran.module.scss'
+import stylesTajweed from './AyahCardQuranTajweed.module.scss'
 import { SurahInfo } from 'entities/Surah/ui/SurahInfo/SurahInfo'
 import { useLazyGetTransliterationQuery } from 'features/QuranReader/api/quranApi'
 import { AudioPlayer } from 'shared'
 import { Collapse, Spin } from 'antd'
 import { useRef } from 'react'
 import { useTranslation } from 'shared/hooks/useTranslation'
-import { RootState } from 'app/store/store'
-import { useSelector } from 'react-redux'
-import { AnimatePresence, motion } from 'motion/react'
 
+import { renderTajweed } from '../RenderTajweed/RenderTajweed'
 interface Props {
   translations: Translations[]
   text_uthmani: string
   verse_key: string
   reciter: string
+  text_uthmani_tajweed?: string
+  isVisible: boolean
 }
 
 export const AyahCardQuran = ({
   translations,
   text_uthmani,
   verse_key,
+  text_uthmani_tajweed,
   reciter,
+  isVisible,
 }: Props) => {
   const [lazyTransliterationHandler, { data, isFetching }] =
     useLazyGetTransliterationQuery()
   const { t } = useTranslation()
-
   const hasFetched = useRef(false)
 
   const handleCollapseChange = (key: string | string[]) => {
@@ -49,32 +51,41 @@ export const AyahCardQuran = ({
           />
         </div>
       </header>
-      <p className={styles.arabicText}>{text_uthmani}</p>
 
-      <Collapse
-        items={[
-          {
-            key: '1',
-            label: t('Транскрипция'),
-            children: isFetching ? (
-              <Spin
-                style={{ color: 'gray' }}
-                tip="Loading"
-              />
-            ) : (
-              <p className={styles.transliteration}>{data?.data.text}</p>
-            ),
-          },
-        ]}
-        onChange={handleCollapseChange}
-        bordered={false}
-        className={styles.customCollapse}
-      />
+      <div className={styles.card}>
+        <div className={stylesTajweed.arabic}>
+          {renderTajweed(text_uthmani_tajweed || text_uthmani)}
+        </div>
+      </div>
 
-      <p className={styles.translation}>
-        {translations?.map(translation => translation.text)}
-      </p>
-      <SurahInfo surahNumber={verse_key} />
+      {isVisible && (
+        <>
+          <Collapse
+            items={[
+              {
+                key: '1',
+                label: t('Транскрипция'),
+                children: isFetching ? (
+                  <Spin
+                    style={{ color: 'gray' }}
+                    tip="Loading"
+                  />
+                ) : (
+                  <p className={styles.transliteration}>{data?.data.text}</p>
+                ),
+              },
+            ]}
+            onChange={handleCollapseChange}
+            bordered={false}
+            className={styles.customCollapse}
+          />
+
+          <p className={styles.translation}>
+            {translations?.map(translation => translation.text)}
+          </p>
+          <SurahInfo surahNumber={verse_key} />
+        </>
+      )}
     </section>
   )
 }

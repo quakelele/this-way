@@ -11,19 +11,20 @@ export const quranApi = createApi({
   reducerPath: 'quranApi',
   baseQuery: fetchBaseQuery({ baseUrl: QURAN_TRANSLATION_BASE_URL }),
   endpoints: build => ({
+    
     getAya: build.infiniteQuery<
       GetAyaResponse,
       {
         id: string
-        language: { localLanguage: string; translationLanguage: number }
+        language: { isTajweedEnabled: boolean, localLanguage: string; translationLanguage: number }
       },
       number
     >({
       query: ({ queryArg: obj, pageParam }) => {
         const { id, language } = obj
-
+       
         return {
-          url: `verses/by_chapter/${id}?translations=${language.translationLanguage}&language=${language.localLanguage}&fields=text_uthmani,translations&per_page=4&page=${pageParam}`,
+          url: `verses/by_chapter/${id}?translations=${language.translationLanguage}&language=${language.localLanguage}&fields=text_uthmani${language.isTajweedEnabled  ? "_tajweed" : "" }&per_page=4&page=${pageParam}`,
         }
       },
       infiniteQueryOptions: {
