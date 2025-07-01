@@ -1,5 +1,133 @@
-.wrapper {
-    width: 100%;
-   justify-content: center;
-
-}
+@font-face {
+    font-family: 'Uthmani';
+    src: url('/fonts/KFGQPC-Uthmanic-Script-HAFS.ttf') format('truetype');
+  }
+  
+  .wrapper {
+    font-family: 'Uthmani', 'Amiri', serif;
+    background: #f4f4f4;
+    // padding: 2rem 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    direction: rtl;
+    overflow: hidden;
+    user-select: none;
+    touch-action: pan-y;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  
+    button {
+      font-size: 1.3rem;
+      padding: 0.3rem 0.7rem;
+      border: none;
+      background: #a3a3a3;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+  
+      &:hover {
+        background: #7c7c7c;
+      }
+  
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  
+    span {
+        font-family: $russian-description;
+      font-size: 1.1rem;
+      color: #444;
+    }
+  }
+  
+  .page {
+    background: #fff;
+    border-radius: 12px;
+    width: 800px;
+    max-width: 90vw;
+    height: calc(100vh - 120px);
+    padding: 2rem;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: grab;
+  
+    &:active {
+      cursor: grabbing;
+    }
+  
+    @media (max-width: 900px) {
+      width: 90vw;
+      height: calc(100vh - 100px);
+      padding: 1.5rem;
+    }
+  }
+  
+  .basmala {
+    font-size: 2.5rem;
+    color: #8b6f47;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.2rem;
+  
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .text {
+    font-size: 2.1rem;
+    line-height: 3.8rem;
+    text-align: justify;
+    word-spacing: 0.4rem;
+    letter-spacing: 0.05rem;
+    color: #1a1a1a;
+    flex: 1;
+    overflow: hidden;
+  
+    @media (max-width: 768px) {
+      font-size: 1.8rem;
+      line-height: 3.2rem;
+    }
+  }
+  
+  .ayah {
+    display: inline;
+    margin-left: 0.4rem;
+  }
+  
+  .ayahNumber {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #8b6f47;
+    font-size: 1.2rem;
+    font-weight: normal;
+    font-family: 'Uthmani', 'Amiri', serif;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 2px solid #8b6f47;
+    border-radius: 50%;
+    margin: 0 0.4rem;
+    vertical-align: middle;
+    position: relative;
+    top: -0.1rem;
+  
+    @media (max-width: 768px) {
+      width: 1.9rem;
+      height: 1.9rem;
+      font-size: 1rem;
+    }
+  }

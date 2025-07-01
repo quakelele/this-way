@@ -5,8 +5,8 @@ export const mushafApi = createApi({
   reducerPath: 'mushafApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.alquran.cloud/v1/' }),
   endpoints: builder => ({
-    getMushafPage: builder.query<QuranResponse, { page: number }>({
-      query: ({ page }) => `page/${page}/quran-uthmani`,
+    getMushafPage: builder.query<QuranResponse,  number >({
+      query: ( page ) => `page/${page}/quran-uthmani`,
     }),
   }),
 })

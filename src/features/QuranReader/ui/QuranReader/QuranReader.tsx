@@ -184,6 +184,7 @@ export const QuranReader = () => {
 
       {quranToggle ? (
         <Mushaf chapterId={chapterId} />
+        // ''
       ) : (
         <section className={styles.content}>
           {data?.pages.map(page =>
