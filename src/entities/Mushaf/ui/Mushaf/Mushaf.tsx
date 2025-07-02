@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useGetMushafPageQuery } from 'entities/Mushaf/api/mushafApi'
 import { quranSurahPages } from 'entities/Mushaf/lib/quranSurahPages'
 import styles from './Mushaf.module.scss'
-import { Tooltip } from 'antd'
+import { Divider, Tooltip } from 'antd'
 
 type Props = {
   chapterId: number
@@ -42,6 +42,7 @@ export const Mushaf: React.FC<Props> = ({ chapterId }) => {
             <span  >{data.page_number.toLocaleString('ar-EG')}</span>
           </Tooltip>
         </div>
+        <Divider/>
         <div className={styles.arabicText}>
           {data.verses.map((verse, verseIndex) => {
             return (
