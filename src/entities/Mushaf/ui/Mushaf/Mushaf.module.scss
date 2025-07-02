@@ -3,18 +3,17 @@
   justify-content: center;
   align-items: center;
   // min-height: 100vh;
-  padding: 5px; /* Минимальные внешние отступы */
 
 }
 
 .mushaf {
   width: 100%;
-  border-top: 10px rgb(224, 224, 224) solid;
-  border-bottom: 10px rgb(224, 224, 224) solid;
+  border-top: 2px rgb(224, 224, 224) solid;
+  border-bottom: 2px rgb(224, 224, 224) solid;
   border-left: 5px rgb(224, 224, 224) solid;
   max-width: 980px; /* Ширина */
   // background: #fafafa; /* Белый фон страницы */
-  border-radius: 6px;
+  border-radius: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   padding:3rem; /* Минимальные внутренние отступы */
   direction: rtl;
@@ -36,6 +35,7 @@
 }
 
 .arabicText {
+  padding-right: 1rem;
   font-size: calc(1.8rem + 0.7vw); /* Респонсивный текст */
   line-height: 2.3; /* Просторнее */
   text-align: justify;

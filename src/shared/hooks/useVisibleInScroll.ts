@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-export const useVisibleInScroll = (threshold = 100) => {
+export const useVisibleInScroll = (threshold = 1) => {
   const [isVisible, setIsVisible] = useState(true)
   const lastScrollY = useRef(0)
 

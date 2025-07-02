@@ -103,8 +103,12 @@ export const QuranReader = () => {
 
   return (
     <main className={styles.main}>
+      {/* <section
+        className={styles.controls}> */}
       <section
-        className={styles.controls}>
+        className={`${styles.controls} ${
+          isVisible ? styles.visible : styles.hidden
+        }`}>
       {/* <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden

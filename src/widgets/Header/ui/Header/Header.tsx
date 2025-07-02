@@ -32,11 +32,10 @@ export const Header: React.FC = () => {
 
   return (
     <div
-      className={headerStyles.header}>
-    {/* <div
       className={`${headerStyles.header} ${
         isVisible ? headerStyles.visible : headerStyles.hidden
-      }`}> */}
+      }`}
+      >
       <header className={styles.header}>
         <div className={styles.leftSection}>
           <button
@@ -48,7 +47,7 @@ export const Header: React.FC = () => {
           <a
             href={ROUTE.HOME}
             className={styles.logo}>
-            QuranApp
+           QuranApp
           </a>
         </div>
         <div className={styles.rightSection}>
