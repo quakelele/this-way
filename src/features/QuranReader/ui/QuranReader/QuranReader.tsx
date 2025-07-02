@@ -34,9 +34,10 @@ export const QuranReader = () => {
   // Локальный стейт для выбранной суры и чтеца
   const [chapterId, setChapterId] = useState<number>(Number(id) || 1)
   const [reciter, setReciter] = useState<string>('ar.alafasy')
-  const [isVisibleTransliteration, setIsVisibleTransliteration] = useState(
-    JSON.parse(localStorage.getItem('language') || '')?.isVisibleTrans
-  )
+  const [isVisibleTransliteration, setIsVisibleTransliteration] = useState(() => {
+    const storedLanguage = localStorage.getItem('language');
+    return storedLanguage ? JSON.parse(storedLanguage)?.isVisibleTrans ?? false : false;
+  });
 
 
   const [quranToggle, setQuranToggle] = useState(false)
