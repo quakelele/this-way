@@ -1,79 +1,70 @@
-import { useEffect,  useState } from 'react'
-import { useSwipeable } from 'react-swipeable'
-import styles from './Mushaf.module.scss'
-import { quranSurahPages } from 'entities/Mushaf/lib/quranSurahPages'
+import React, { useEffect, useState } from 'react'
+
 import { useGetMushafPageQuery } from 'entities/Mushaf/api/mushafApi'
-import { useTranslation } from 'shared/hooks/useTranslation'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
+import { quranSurahPages } from 'entities/Mushaf/lib/quranSurahPages'
+import styles from './Mushaf.module.scss'
+import { Tooltip } from 'antd'
 
 type Props = {
   chapterId: number
 }
 
-export const Mushaf = ({ chapterId }: Props) => {
-  const [page, setPage] = useState(quranSurahPages[chapterId])
-  const [direction, setDirection] = useState<1 | -1>(1)
+export const Mushaf: React.FC<Props> = ({ chapterId }) => {
+  const [page, setPage] = useState(quranSurahPages[chapterId] || 1)
 
-  const { t } = useTranslation()
-  const { data,  } = useGetMushafPageQuery(page)
-
+  const { data, isLoading, isError } = useGetMushafPageQuery(page)
 
   useEffect(() => {
-    setPage(quranSurahPages[chapterId])
+    setPage(quranSurahPages[chapterId] || 1)
   }, [chapterId])
 
-  const surahId = data?.data?.ayahs?.[0]?.surah?.number
-  const isBasmalahRequired = surahId !== 1 && surahId !== 9
-  const ayahs = data?.data?.ayahs ?? []
-
-  const displayAyahs = isBasmalahRequired
-    ? ayahs.filter(
-        (a, i) => i !== 0 || a.text !== 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'
-      )
-    : ayahs
-
-  const handleChangePage = (newPage: number, dir: 1 | -1) => {
-    if (newPage < 1 || newPage > 604) return
-    setDirection(dir)
-    setPage(newPage)
+  const playAudio = (audioUrl: string | null) => {
+    if (audioUrl) {
+      const audio = new Audio(`https://audio.qurancdn.com/${audioUrl}`)
+      audio.play().catch(error => {
+        console.error('Audio playback error:', error)
+      })
+    }
   }
 
-  const swipeHandlers = useSwipeable({
-    onSwipedRight: () => handleChangePage(page + 1, 1),
-    onSwipedLeft: () => handleChangePage(page - 1, -1),
-    trackMouse: true,
-    delta: 10,
-  })
+  if (isLoading) return <div className={styles.loading}>جاري التحميل...</div>
+  if (isError || !data?.verses)
+    return <div className={styles.error}>خطأ في تحميل البيانات</div>
 
   return (
-    <div
-      className={styles.wrapper}
-      {...swipeHandlers}
-      >
-      <div className={styles.nav}>
-        <button
-          disabled={page <= 1}
-          onClick={() => handleChangePage(page - 1, -1)}>
-          →
-        </button>
-        <span>
-          {t('Страница')} {page}
-        </span>
-        <button  onClick={() => setPage(prev => prev + 1)}>←</button>
-      </div>
-
-      <div className={styles.page}>
-        {isBasmalahRequired && <div className={styles.basmala}>﷽</div>}
-        <div className={styles.text}>
-          {displayAyahs.map(ayah => (
-            <span
-           
-              key={ayah.number}
-              className={styles.ayah}>
-              {ayah.text}
-              <span className={styles.ayahNumber}>{ayah.numberInSurah}</span>
-            </span>
-          ))}
+    <div className={styles.mushafContainer}>
+      <div className={styles.mushaf}>
+        <div
+          className={styles.pageTitle}
+          prefix={data.page_number}>
+          صفحة القرآن
+          <Tooltip title={data.page_number}>
+            <span  >{data.page_number.toLocaleString('ar-EG')}</span>
+          </Tooltip>
+        </div>
+        <div className={styles.arabicText}>
+          {data.verses.map((verse, verseIndex) => {
+            return (
+              <span
+                key={verseIndex}
+                className={styles.verse}>
+                {verse.words.map((word, wordIndex) => (
+                  <span
+                    key={`${verseIndex}-${wordIndex}`}
+                    className={`${styles.word} ${
+                      word.audio_url ? styles.clickable : ''
+                    }`}
+                    onClick={() => {
+                      playAudio(word.audio_url)
+                      console.log(data?.verses[0].words)
+                    }}>
+                    {word.text_uthmani}
+                  </span>
+                ))}
+                <span   className={styles.verseNumber}>{verse.verse_number}</span>
+              </span>
+            )
+          })}
         </div>
       </div>
     </div>

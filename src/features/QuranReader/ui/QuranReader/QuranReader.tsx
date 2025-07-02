@@ -104,9 +104,11 @@ export const QuranReader = () => {
   return (
     <main className={styles.main}>
       <section
+        className={styles.controls}>
+      {/* <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden
-        }`}>
+        }`}> */}
         <div className={styles.selectWrapper}>
           <header className={styles.header}>
             <SurahTitle

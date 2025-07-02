@@ -3,6 +3,13 @@
   font-family: 'Quran';
   src: url('../../assets/fonts/KFGQPC-KufiExtV14.ttf');
 }
+
+@font-face {
+  font-family: 'Mushaf';
+  src: url('https://static-cdn.tarteel.ai/qul/fonts/nastaleeq/Hanafi/normal-v4.2.2/with-waqf-lazmi/font.ttf');
+  font-display: swap;
+}
+
 *,
 *::before,
 *::after {

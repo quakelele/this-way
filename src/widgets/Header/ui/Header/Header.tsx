@@ -32,9 +32,11 @@ export const Header: React.FC = () => {
 
   return (
     <div
+      className={headerStyles.header}>
+    {/* <div
       className={`${headerStyles.header} ${
         isVisible ? headerStyles.visible : headerStyles.hidden
-      }`}>
+      }`}> */}
       <header className={styles.header}>
         <div className={styles.leftSection}>
           <button
