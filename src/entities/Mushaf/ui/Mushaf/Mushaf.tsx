@@ -94,30 +94,10 @@ export const Mushaf: React.FC<Props> = ({ chapterId }) => {
               <button
                 className={styles.controlBtn}
                 onClick={nextPage}
-                aria-label="Next Page">
-                ←
+                aria-label="Next Page">←
               </button>
             </div>
-            <div className={styles.controls2}>
-              <button
-                className={styles.controlBtn}
-                onClick={prevPage}
-                aria-label="Previous Page">
-                →
-              </button>
-              <button
-                className={styles.controlBtn}
-                onClick={exitFullscreen}
-                aria-label="Exit Fullscreen">
-                ✕
-              </button>
-              <button
-                className={styles.controlBtn}
-                onClick={nextPage}
-                aria-label="Next Page">
-                ←
-              </button>
-            </div>
+
           </>
         )}
         {!isFullscreen && (
