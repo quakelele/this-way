@@ -16,6 +16,7 @@ interface Props {
   reciter: string
   text_uthmani_tajweed?: string
   isVisible: boolean
+  showDrawer: () => void
 }
 
 export const AyahCardQuran = ({
@@ -24,6 +25,7 @@ export const AyahCardQuran = ({
   verse_key,
   text_uthmani_tajweed,
   reciter,
+  showDrawer,
   isVisible,
 }: Props) => {
   const [lazyTransliterationHandler, { data, isFetching }] =
@@ -41,7 +43,7 @@ export const AyahCardQuran = ({
     }
   }
   return (
-    <section className={styles.ayahCard}>
+    <section onDoubleClick={showDrawer} className={styles.ayahCard}>
       <header className={styles.ayahHeader}>
         <h3 className={styles.ayahNumber}>{verse_key}</h3>
         <div className={styles.ayahActions}>

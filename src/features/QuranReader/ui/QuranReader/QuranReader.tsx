@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import styles from './QuranReader.module.scss'
 import { AyahCardQuran } from 'entities'
-import { Spin, Select, Checkbox } from 'antd'
+import { Spin, Select, Checkbox, Drawer} from 'antd'
 import { surahOptions } from 'features/QuranReader/constants/surahs'
 import { useGetAyaInfiniteQuery } from 'features/QuranReader/api/quranApi'
 import { reciters } from 'features/QuranReader/constants/reciters'
@@ -9,7 +9,7 @@ import { useTranslation } from 'shared/hooks/useTranslation'
 import { useNavigate, useParams } from 'react-router'
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
-// import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
+import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
 import {
   TranslationOption,
@@ -20,13 +20,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'app/store/store'
 import { CheckboxProps } from 'antd/lib'
 import { Mushaf } from 'entities/Mushaf/ui/Mushaf/Mushaf'
+import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 
 export const QuranReader = () => {
   const { t } = useTranslation()
   const { id = '1' } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const isVisible = useVisibleInScroll()
+  const isVisible = useVisibleInScroll()
 
   // Получаем язык из редакса
   const language = useSelector((state: RootState) => state.language.lang)
@@ -108,20 +109,22 @@ export const QuranReader = () => {
   }
 
 
-
-
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <main className={styles.main}>
+      {/* <section
+        className={styles.controls}> */}
       <section
-        className={styles.controls}>
-      {/* <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden
-        }`}> */}
-      {/* <section
-        className={`${styles.controls} ${
-          isVisible ? styles.visible : styles.hidden
-        }`}> */}
+        }`}>
+  
         <div className={styles.selectWrapper}>
           <header className={styles.header}>
             <SurahTitle
@@ -130,7 +133,15 @@ export const QuranReader = () => {
             />
           </header>
 
-          <div className={styles.formInner}>
+      <Drawer
+      placement='bottom'
+      
+      closable={{ 'aria-label': 'Close Button' }}
+      onClose={onClose}
+      open={open}
+      >
+ 
+      <div className={styles.formInner}>
             <Select
               placeholder={t('Выберите перевод')}
               className={styles.select}
@@ -199,6 +210,7 @@ export const QuranReader = () => {
               </Checkbox>
             </div>
           </div>
+      </Drawer>
         </div>
       </section>
 
@@ -210,6 +222,7 @@ export const QuranReader = () => {
           {data?.pages.map(page =>
             page.verses.map(ayah => (
               <AyahCardQuran
+              showDrawer={showDrawer}
                 isVisible={isVisibleTransliteration}
                 key={ayah.id}
                 reciter={reciter}
