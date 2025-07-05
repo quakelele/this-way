@@ -9,6 +9,7 @@ import { useRef } from 'react'
 import { useTranslation } from 'shared/hooks/useTranslation'
 
 import { RenderTajweed } from '../RenderTajweed/RenderTajweed'
+import { FavoriteButton } from 'shared/ui/FavoriteButton/FavoriteButton'
 interface Props {
   translations: Translations[]
   text_uthmani: string
@@ -51,6 +52,7 @@ export const AyahCardQuran = ({
             reciter={reciter}
             surahKeys={verse_key}
           />
+          <FavoriteButton/>
         </div>
       </header>
 
