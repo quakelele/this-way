@@ -1,7 +1,7 @@
 /* Header_V2.tsx */
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, Settings } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import classNames from 'classnames'
 import styles from './Header.module.scss'
 import { navItems } from 'features/Navigation/lib/navConfig'
@@ -51,10 +51,10 @@ export const Header: React.FC = () => {
           </a>
         </div>
         <div className={styles.rightSection}>
-          <Settings
+          {/* <Settings
             size={22}
             onClick={() => navigate(ROUTE.SETTINGS)}
-          />
+          /> */}
 
           <ChangeLanguage />
         </div>

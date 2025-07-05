@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru' // Импорт русской локали
 import styles from './PrayerTimes.module.scss'
@@ -33,7 +33,9 @@ export const PrayerTimes = () => {
     () => getNextPrayer(todayPrayerTimes, t),
     [todayPrayerTimes, t]
   )
+useEffect(() => {
 
+}, [ location])
   return (
     <div className={styles.container}>
       <PrayerHeader

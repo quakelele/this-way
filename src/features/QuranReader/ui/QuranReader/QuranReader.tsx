@@ -19,8 +19,7 @@ import { setLanguage } from 'app/store/slice/languageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'app/store/store'
 import { CheckboxProps } from 'antd/lib'
-import { Mushaf } from 'entities/Mushaf/ui/Mushaf/Mushaf'
-import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
+// import { Mushaf } from 'entities/Mushaf/ui/Mushaf/Mushaf'
 
 export const QuranReader = () => {
   const { t } = useTranslation()

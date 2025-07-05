@@ -3,13 +3,20 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr;
-
     @media (min-width: 640px) {
       grid-template-columns: 1fr 1fr;
     }
+    width: 100%;
   }
   
   .card {
+
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(229, 231, 235, 0.5);

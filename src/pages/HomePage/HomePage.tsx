@@ -34,14 +34,12 @@ export const HomePage = () => {
         </div>
       </div>
       <div className={styles.content}>
-
         <Divider />
 
         <CustomWidget />
 
         <RandomAyah />
-      <Divider />
-
+        <Divider />
       </div>
     </div>
   )

@@ -3,10 +3,11 @@ import 'dayjs/locale/ru';
 import 'dayjs/locale/az';
 import { useTranslation } from 'shared/hooks/useTranslation';
 import { useSelector } from 'react-redux';
+import { RootState } from 'app/store/slice/locationForm';
 
 export const useLocalizedDate = (locationName?: string) => {
   const { t } = useTranslation();
-  const lang = useSelector((state: any) => state.language.lang.localLanguage) || 'ru';
+  const lang = useSelector((state: RootState) => state.language.lang.localLanguage) || 'ru';
 
   dayjs.locale(lang);
 
