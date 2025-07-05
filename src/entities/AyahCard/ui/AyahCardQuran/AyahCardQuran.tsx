@@ -17,7 +17,9 @@ interface Props {
   reciter: string
   text_uthmani_tajweed?: string
   isVisible: boolean
-  showDrawer: () => void
+  drawerToggler: {
+    setTrue: () => boolean
+  }
 }
 
 export const AyahCardQuran = ({
@@ -26,7 +28,7 @@ export const AyahCardQuran = ({
   verse_key,
   text_uthmani_tajweed,
   reciter,
-  showDrawer,
+  drawerToggler,
   isVisible,
 }: Props) => {
   const [lazyTransliterationHandler, { data, isFetching }] =
@@ -44,7 +46,9 @@ export const AyahCardQuran = ({
     }
   }
   return (
-    <section onDoubleClick={showDrawer} className={styles.ayahCard}>
+    <section
+      onDoubleClick={drawerToggler.setTrue}
+      className={styles.ayahCard}>
       <header className={styles.ayahHeader}>
         <h3 className={styles.ayahNumber}>{verse_key}</h3>
         <div className={styles.ayahActions}>
@@ -52,7 +56,7 @@ export const AyahCardQuran = ({
             reciter={reciter}
             surahKeys={verse_key}
           />
-          <FavoriteButton/>
+          <FavoriteButton />
         </div>
       </header>
 

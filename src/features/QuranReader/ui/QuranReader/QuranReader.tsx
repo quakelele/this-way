@@ -19,6 +19,7 @@ import { setLanguage } from 'app/store/slice/languageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'app/store/store'
 import { CheckboxProps } from 'antd/lib'
+import { useToggle } from 'shared/hooks/useToggle'
 // import { Mushaf } from 'entities/Mushaf/ui/Mushaf/Mushaf'
 
 export const QuranReader = () => {
@@ -70,7 +71,6 @@ export const QuranReader = () => {
 
   const onTransliterationVisibleChange: CheckboxProps['onChange'] = e => {
     setIsVisibleTransliteration(e.target.checked)
-    // console.log(isVisibleTransliteration)
     const newOption = {
       ...language,
       isVisibleTrans: e.target.checked,
@@ -107,14 +107,12 @@ export const QuranReader = () => {
     navigate(`/${value}`)
   }
 
+const drawerToggler = useToggle()
 
-  const [open, setOpen] = useState(false);
   const showDrawer = () => {
-    setOpen(true);
+    drawerToggler.setTrue()
   };
-  const onClose = () => {
-    setOpen(false);
-  };
+
   return (
     <main className={styles.main}>
       {/* <section
@@ -125,7 +123,7 @@ export const QuranReader = () => {
         }`}>
   
         <div className={styles.selectWrapper}>
-          <header className={styles.header}>
+          <header onDoubleClick={drawerToggler.setTrue} className={styles.header}>
             <SurahTitle
               surah_tr={t(surahs[chapterId.toString()]?.russian || '')}
               verse_id={chapterId.toString()}
@@ -136,8 +134,8 @@ export const QuranReader = () => {
       placement='bottom'
       
       closable={{ 'aria-label': 'Close Button' }}
-      onClose={onClose}
-      open={open}
+      onClose={drawerToggler.setFalse}
+      open={drawerToggler.value}
       >
  
       <div className={styles.formInner}>
@@ -221,7 +219,7 @@ export const QuranReader = () => {
           {data?.pages.map(page =>
             page.verses.map(ayah => (
               <AyahCardQuran
-              showDrawer={showDrawer}
+              drawerToggler={drawerToggler}
                 isVisible={isVisibleTransliteration}
                 key={ayah.id}
                 reciter={reciter}

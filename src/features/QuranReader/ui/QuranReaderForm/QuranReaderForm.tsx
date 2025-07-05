@@ -1,7 +1,7 @@
-import { Button, Form, Input, Select } from 'antd'
+import {  Form, Input, Select } from 'antd'
 import styles from './QuranReaderForm.module.scss'
 import { options, TranslationOption } from 'features/QuranSearch/utils/options'
-import { SearchOutlined } from '@ant-design/icons'
+
 import { useTranslation } from 'shared/hooks/useTranslation'
 import { SearchFormTypes } from 'shared/model/types'
 import { surahOptions } from 'features/QuranReader/constants/surahs'

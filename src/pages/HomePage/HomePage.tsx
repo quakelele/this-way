@@ -1,11 +1,9 @@
 import styles from './HomePage.module.scss'
-import { PrayerTimes } from 'entities/PrayerTimes/ui/PrayerTimes/PrayerTimes'
 import kaaba from 'assets/kaaba.jpg'
 import { DividerSvg as Divider } from 'shared/ui/DividerSvg/DividerSvg'
 import {
   CustomWidget,
   //  CustomWidget,
-  Header,
   RandomAyah,
 } from 'widgets'
 import { useTranslation } from 'shared/hooks/useTranslation'
