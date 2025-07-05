@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styles from './QuranReader.module.scss'
 import { AyahCardQuran } from 'entities'
 import { Spin, Select, Checkbox } from 'antd'
@@ -9,7 +9,7 @@ import { useTranslation } from 'shared/hooks/useTranslation'
 import { useNavigate, useParams } from 'react-router'
 import { surahs } from 'entities/AyahCard/model/surahs'
 import { SurahTitle } from 'shared/ui/SuharTitle/SurahTitle'
-import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
+// import { useVisibleInScroll } from 'shared/hooks/useVisibleInScroll'
 import { useIntersectionObserver } from 'features/QuranReader/hooks/useIntersectionObserver'
 import {
   TranslationOption,
@@ -26,7 +26,7 @@ export const QuranReader = () => {
   const { id = '1' } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const isVisible = useVisibleInScroll()
+  // const isVisible = useVisibleInScroll()
 
   // Получаем язык из редакса
   const language = useSelector((state: RootState) => state.language.lang)
@@ -45,13 +45,19 @@ export const QuranReader = () => {
   // При смене url синхронизируем chapterId
   useEffect(() => {
     setChapterId(Number(id) || 1)
+    scrollToTop()
   }, [id])
 
   // Получаем аяты по текущей суре и языку
   const { data, isFetching, isLoading, fetchNextPage, hasNextPage } =
     useGetAyaInfiniteQuery({ id: chapterId.toString(), language })
 
-
+    const scrollToTop = useCallback(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'instant' , // Плавная прокрутка
+      });
+    }, []);
     
 
   // Для бесконечного скролла
@@ -101,14 +107,17 @@ export const QuranReader = () => {
     navigate(`/${value}`)
   }
 
+
+
+
   return (
     <main className={styles.main}>
-      {/* <section
-        className={styles.controls}> */}
       <section
+        className={styles.controls}>
+      {/* <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden
-        }`}>
+        }`}> */}
       {/* <section
         className={`${styles.controls} ${
           isVisible ? styles.visible : styles.hidden
@@ -194,8 +203,8 @@ export const QuranReader = () => {
       </section>
 
       {quranToggle ? (
-        <Mushaf chapterId={chapterId} />
-        // ''
+        // <Mushaf chapterId={chapterId} />
+        ''
       ) : (
         <section className={styles.content}>
           {data?.pages.map(page =>
