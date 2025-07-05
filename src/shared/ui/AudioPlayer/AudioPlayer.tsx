@@ -9,13 +9,13 @@ interface AudioPlayerProps {
   reciter: string
 }
 
-export const AudioPlayer: FC<AudioPlayerProps> = ({ surahKeys, size = 3 ,reciter}) => {
+export const AudioPlayer: FC<AudioPlayerProps> = ({ surahKeys,reciter}) => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [repeat, setRepeat] = useState(false)
 
-  const [lazyAudioHandler, { data, isFetching }] = useLazyGetAudioQuery()
+  const [lazyAudioHandler, {  isFetching }] = useLazyGetAudioQuery()
 
 
   const handlePlay = async () => {
@@ -60,7 +60,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ surahKeys, size = 3 ,reciter
 
       <AudioButton
         type="play"
-        size={size}
+        size={2.2}
         isActive={isPlaying}
         isLoading={isFetching}
         onClick={handlePlay}
@@ -69,7 +69,7 @@ export const AudioPlayer: FC<AudioPlayerProps> = ({ surahKeys, size = 3 ,reciter
       />
       <AudioButton
         type="repeat"
-        size={size}
+        size={2.2}
         isActive={repeat}
         onClick={() => setRepeat(prev => !prev)}
         title="Повтор"

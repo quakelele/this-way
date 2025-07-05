@@ -14,7 +14,7 @@ interface AudioButtonProps {
 
 export const AudioButton: FC<AudioButtonProps> = ({
   type,
-  size = 2.5,
+  size = 2,
   isActive = false,
   isLoading = false,
   onClick,
