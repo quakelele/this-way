@@ -21,7 +21,7 @@
 
 .word {
   cursor: pointer;
-  font-size: clamp(0.625rem, -0.3542rem + 4.1667vw, 2.25rem);
+  font-size: clamp(0.625rem, 0.1142rem + 3.1667vw, 2.25rem);
 //   font-size: clamp(0.9375rem, 0.1466rem + 3.3654vw, 2.25rem);
   padding: 0 3px;
   color: #1a1a1a;
@@ -38,9 +38,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 28px;
-  height: 28px;
-  font-size: clamp(0.75rem, 0.2604rem + 2.0833vw, 1.5625rem);
+//   min-width: 28px;
+//   height: 28px;
+  font-size: clamp(0.65rem, 0.1604rem + 1.0833vw, 1.3625rem);
   color: #ff0000;
   font-weight: bold;
   font-family: 'Amiri';
