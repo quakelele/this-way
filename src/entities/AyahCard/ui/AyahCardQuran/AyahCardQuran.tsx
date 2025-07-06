@@ -3,13 +3,13 @@ import styles from './AyahCardQuran.module.scss'
 import stylesTajweed from './AyahCardQuranTajweed.module.scss'
 import { SurahInfo } from 'entities/Surah/ui/SurahInfo/SurahInfo'
 import { useLazyGetTransliterationQuery } from 'features/QuranReader/api/quranApi'
-import { AudioPlayer } from 'shared'
+import { AudioPlayer, HintBubble } from 'shared'
 import { Collapse, Spin } from 'antd'
 import { useRef } from 'react'
 import { useTranslation } from 'shared/hooks/useTranslation'
-
 import { RenderTajweed } from '../RenderTajweed/RenderTajweed'
 import { FavoriteButton } from 'shared/ui/FavoriteButton/FavoriteButton'
+import { UseToggleTypes } from 'shared/hooks/useToggle'
 interface Props {
   translations: Translations[]
   text_uthmani: string
@@ -17,9 +17,7 @@ interface Props {
   reciter: string
   text_uthmani_tajweed?: string
   isVisible: boolean
-  drawerToggler: {
-    setTrue: () => boolean
-  }
+  drawerToggler: UseToggleTypes
 }
 
 export const AyahCardQuran = ({
@@ -47,8 +45,14 @@ export const AyahCardQuran = ({
   }
   return (
     <section
-      onDoubleClick={drawerToggler.setTrue}
+
+    onDoubleClick={drawerToggler.setTrue}
       className={styles.ayahCard}>
+        <HintBubble
+        duration={10000}
+        text={t("Двойной клик сюда для фильтров")}
+        storageKey="filtersHint"
+      />
       <header className={styles.ayahHeader}>
         <h3 className={styles.ayahNumber}>{verse_key}</h3>
         <div className={styles.ayahActions}>

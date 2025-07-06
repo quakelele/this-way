@@ -1,5 +1,4 @@
-import leftArrow from 'assets/img/leftArrow.png'
-import rightArrow from 'assets/img/rightArrow.png'
+
 import styles from './SurahTitle.module.scss'
 import { useTranslation } from 'shared/hooks/useTranslation'
 type Props = {

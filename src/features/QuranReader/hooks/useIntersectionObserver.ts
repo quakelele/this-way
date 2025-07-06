@@ -4,14 +4,14 @@ type Params = {
   isFetching: boolean
   hasNextPage: boolean
   fetchNextPage: () => void
-  quranToggle: boolean
+  // quranToggle: boolean
 }
 
 export const useIntersectionObserver = ({
   isFetching,
   hasNextPage,
   fetchNextPage,
-  quranToggle
+  // quranToggle
 }: Params) => {
       const observerRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
@@ -34,6 +34,6 @@ export const useIntersectionObserver = ({
     return () => {
       if (observerRef.current) observer.unobserve(observerRef?.current)
     }
-  }, [hasNextPage, isFetching, fetchNextPage , quranToggle])
+  }, [hasNextPage, isFetching, fetchNextPage , ])
   return observerRef
 }
