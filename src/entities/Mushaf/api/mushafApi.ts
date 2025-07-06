@@ -1,3 +1,4 @@
+// src/entities/Mushaf/api/mushafApi.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const mushafApi = createApi({
@@ -15,20 +16,7 @@ export const mushafApi = createApi({
     getMushafPage: builder.query({
       query: (page) =>
         `verses/by_page/${page}?words=true&word_fields=text_uthmani,audio_url&fields=hizb_number,ruku_number,manzil_number,sajdah_number,juz_number,text_uthmani`,
-      transformResponse: (response: { verses: any[] }) => ({
-        verses: response.verses.map(verse => ({
-          text_uthmani: verse.text_uthmani,
-          verse_number: `﴿${verse.verse_number.toLocaleString('ar-EG')}﴾`,
-          words: verse.words
-            .filter(word => word.char_type_name !== 'end')
-            .map(word => ({
-              text_uthmani: word.text_uthmani,
-              audio_url: word.audio_url,
-            })),
-        })),
-        
-        page_number: response.verses[0]?.page_number,
-      }),
+
     }),
   }),
 });
@@ -69,3 +57,19 @@ export const { useGetMushafPageQuery } = mushafApi;
 // });
 
 // export const { useGetMushafPageQuery } = mushafApi;
+
+
+// transformResponse: (response: { verses: any[] }) => ({
+//   verses: response.verses.map(verse => ({
+//     text_uthmani: verse.text_uthmani,
+//     verse_number: `﴿${verse.verse_number.toLocaleString('ar-EG')}﴾`,
+//     words: verse.words
+//       .filter(word => word.char_type_name !== 'end')
+//       .map(word => ({
+//         text_uthmani: word.text_uthmani,
+//         audio_url: word.audio_url,
+//       })),
+//   })),
+  
+//   page_number: response.verses[0]?.page_number,
+// }),

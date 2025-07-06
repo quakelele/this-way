@@ -1,0 +1,48 @@
+.line {
+    
+  display: inline-flex; /* Use inline-flex to fit content width */
+  flex-wrap: nowrap; /* Prevent wrapping to keep all words in a single line */
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dashed #9595957b;
+  border-radius: 4px; /* Optional: slight rounding for aesthetics */
+  padding: 5px; /* Add padding to ensure text isn't flush against borders */
+//   background-color: #fff; /* Default background */
+  transition: background-color 0.2s;
+  max-width: 100%; /* Prevent overflow beyond parent container */
+  overflow: hidden; /* Hide any content that might overflow */
+  box-sizing: border-box; /* Ensure padding is included in width calculations */
+  margin: 0 auto;
+
+  &:hover {
+    // background-color: #f9f5e7;
+  }
+}
+
+.word {
+  cursor: pointer;
+  font-size: clamp(0.625rem, -0.3542rem + 4.1667vw, 2.25rem);
+//   font-size: clamp(0.9375rem, 0.1466rem + 3.3654vw, 2.25rem);
+  padding: 0 3px;
+  color: #1a1a1a;
+  border-radius: 10px;
+  white-space: nowrap; /* Prevent text wrapping within each word */
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e0f7fa;
+  }
+}
+
+.verseNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  font-size: clamp(0.75rem, 0.2604rem + 2.0833vw, 1.5625rem);
+  color: #ff0000;
+  font-weight: bold;
+  font-family: 'Amiri';
+  cursor: default;
+}

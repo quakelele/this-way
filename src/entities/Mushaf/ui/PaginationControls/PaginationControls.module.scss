@@ -1,0 +1,43 @@
+.divider {
+  border-color: #c4c4c4;
+  margin: 16px 0;
+}
+
+.pagination {
+  direction: ltr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-family: $russian-subtitle;
+  cursor: pointer;
+
+  .pageNumber {
+    font-size: clamp(0.5625rem, 0.3365rem + 0.9615vw, 0.9375rem);
+    color: #333;
+    font-weight: 500;
+  }
+
+  .paginationButton {
+    font-size: clamp(0.5625rem, 0.3365rem + 0.9615vw, 0.9375rem);
+    transition: all 0.3s;
+    border: 1px solid rgba(195, 195, 195, 0.226);
+    border-radius: 8px;
+    font-family: $russian-subtitle;
+    &:hover {
+      background-color: #e5e5e5ba;
+    }
+  
+
+    &:disabled {
+      color: #999;
+      cursor: not-allowed;
+    }
+    
+  }
+}
+// :global(.ant-btn-variant-solid) {
+//   &:hover {
+//     background: rgb(197, 197, 197)!important;
+//   }
+// }
